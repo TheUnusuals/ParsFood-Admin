@@ -53,8 +53,15 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: dist
+      - name: Setup Firebase project ID
+        env:
+          FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
+        run: firebase use $FIREBASE_PROJECTID
+      - name: Setup Firebase target
+        env:
+          FIREBASE_HOSTING_SITE: ${{ secrets.FIREBASE_HOSTING_SITE }}
+        run: firebase target:apply hosting parsfood-admin $FIREBASE_HOSTING_SITE
       - name: Deploy to firebase hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
         run: firebase deploy --only hosting:parsfood-admin --project $FIREBASE_PROJECTID
