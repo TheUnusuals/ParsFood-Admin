@@ -28,7 +28,7 @@ jobs:
         run: npm install
       - name: Create Firebase config file
         env:
-          FIREBASE_CONFIG: ${{ toJson(secrets.FIREBASE_CONFIG) }}
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: echo "export default $FIREBASE_CONFIG" > src/firebase.config.ts
       - name: Build project
         run: npm run build
