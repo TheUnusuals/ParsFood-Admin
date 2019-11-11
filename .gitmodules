@@ -1,0 +1,3 @@
+[submodule "ParsFood-Common"]
+	path = ParsFood-Common
+	url = https://github.com/TheUnusuals/ParsFood-Common.git

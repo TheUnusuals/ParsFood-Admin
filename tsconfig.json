@@ -18,6 +18,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "-/*": [
+        "ParsFood-Common/src/*"
       ]
     },
     "lib": [
