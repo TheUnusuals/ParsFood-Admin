@@ -5,8 +5,6 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [];
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes: routes
 });
-
-export default router;

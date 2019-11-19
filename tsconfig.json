@@ -16,6 +16,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "vuetify/*": [
+        "node_modules/vuetify/types/*"
       ]
     },
     "lib": [
