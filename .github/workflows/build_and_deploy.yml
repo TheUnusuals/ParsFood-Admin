@@ -69,6 +69,36 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: firebase deploy --only hosting:parsfood-admin
+  deploy-functions:
+    name: Deploy Cloud Functions
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout branch
+          uses: actions/checkout@v1
+          with:
+            submodules: recursive
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: functions/node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('functions/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Download firebase-tools
+          run: npm -g install firebase-tools
+      - name: Install npm dependecies
+        run: npm --prefix functions install
+      - name: Setup Firebase project ID
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+            FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
+          run: firebase use $FIREBASE_PROJECTID
       - name: Deploy Cloud Functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
