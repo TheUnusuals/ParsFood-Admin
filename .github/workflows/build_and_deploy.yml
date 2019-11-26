@@ -41,7 +41,7 @@ jobs:
           path: dist
   deploy:
     name: Deploy
-    needs: build
+    needs: [build, deploy-functions]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
