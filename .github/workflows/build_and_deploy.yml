@@ -44,7 +44,8 @@ jobs:
     needs: [build, deploy-functions]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout branch
+        uses: actions/checkout@v1
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -70,7 +71,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: firebase deploy --only hosting:parsfood-admin
   deploy-functions:
-    name: Deploy Cloud Functions
+    name: Build and deploy Cloud Functions
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
