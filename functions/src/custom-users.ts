@@ -12,6 +12,35 @@ function getUserId(customUserId: string): string {
     return customUsers.prefix + customUserId;
 }
 
+async function encryptPassword(password: string): Promise<string> {
+    return await require("bcrypt").hash(password, customUsers.saltRounds);
+}
+
+async function createUserFromCustomUser(customUserId: string, username: string): Promise<admin.firestore.WriteResult> {
+    const newUser = {
+        username: username
+    };
+
+    return await admin.firestore()
+        .collection(users.collection)
+        .doc(getUserId(customUserId))
+        .create(newUser);
+}
+
+async function createUserFromCustomUserIfNotExists(customUserId: string, username: string): Promise<boolean> {
+    const user = await admin.firestore()
+        .collection(users.collection)
+        .doc(customUserId)
+        .get();
+
+    if (!user.exists) {
+        await createUserFromCustomUser(customUserId, username);
+        return true;
+    }
+
+    return false;
+}
+
 export const auth_login: any = regionFunctions.https.onCall(async (data: LoginData, context) => {
     function throwInvalid() {
         throw new functions.https.HttpsError("invalid-argument", "Invalid username or password.", "invalid-credentials");
@@ -30,8 +59,21 @@ export const auth_login: any = regionFunctions.https.onCall(async (data: LoginDa
     if (querySnapshot.empty) throwInvalid();
 
     const customUserDoc = querySnapshot.docs[0];
+    const customUserData = customUserDoc.data();
 
-    if (!await require("bcrypt").compare(data.password, customUserDoc.data().password)) {
+    if (customUserData.encrypted === false) {
+        if (data.password !== customUserData.password) {
+            throwInvalid();
+        }
+
+        await Promise.all([
+            customUserDoc.ref.update({
+                "password": await encryptPassword(customUserData.password),
+                "encrypted": admin.firestore.FieldValue.delete()
+            }),
+            createUserFromCustomUserIfNotExists(customUserDoc.ref.id, customUserData.username)
+        ]);
+    } else if (!await require("bcrypt").compare(data.password, customUserData.password)) {
         throwInvalid();
     }
 
@@ -64,7 +106,7 @@ export const auth_register: any = regionFunctions.https.onCall(async (data: Regi
 
         const newCustomUser = {
             username: data.username,
-            password: await require("bcrypt").hash(data.password, customUsers.saltRounds)
+            password: await encryptPassword(data.password)
         };
 
         customUserRef = admin.firestore().collection(customUsers.collection).doc();
@@ -72,12 +114,5 @@ export const auth_register: any = regionFunctions.https.onCall(async (data: Regi
         transaction.create(customUserRef, newCustomUser);
     });
 
-    const newUser = {
-        username: data.username
-    };
-
-    await admin.firestore()
-        .collection(users.collection)
-        .doc(getUserId(customUserRef.id))
-        .create(newUser);
+    await createUserFromCustomUserIfNotExists(customUserRef.id, data.username);
 });
