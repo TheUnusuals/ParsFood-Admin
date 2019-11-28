@@ -62,17 +62,6 @@ export const auth_register: any = regionFunctions.https.onCall(async (data: Regi
             throw new functions.https.HttpsError("invalid-argument", "Username is already taken.", "username-taken");
         }
 
-        const userQuerySnapshot = await transaction.get(
-            admin.firestore()
-                .collection(users.collection)
-                .where("username", "==", data.username)
-                .limit(1)
-        );
-
-        if (!userQuerySnapshot.empty) {
-            throw new functions.https.HttpsError("invalid-argument", "Username is already taken.", "username-taken");
-        }
-
         const newCustomUser = {
             username: data.username,
             password: await require("bcrypt").hash(data.password, customUsers.saltRounds)
