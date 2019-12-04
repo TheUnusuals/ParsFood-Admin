@@ -1,4 +1,4 @@
-name: Build the code in the specified branches (development) to check for errors.
+name: Build the code in the specified branches (development and pull requests) to check for errors.
 on:
   push:
     branches:
