@@ -1,1 +1,14 @@
-{}
+{
+  "views": {
+    "login": {
+      "errors": {
+        "could-not-login": "Nepavyko prisijungti. Prašome patikrinti, ar yra interneto ryšys.",
+        "invalid-credentials": "Neteisingi prisijungimo duomenys."
+      },
+      "login": "Prisijungti",
+      "password": "Slaptažodis",
+      "title": "Prisijungti",
+      "username": "Slapyvardis"
+    }
+  }
+}

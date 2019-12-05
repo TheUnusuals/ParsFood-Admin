@@ -1,13 +1,15 @@
 import "reflect-metadata";
 
-import Vue from "vue"
-import App from "@/views/App.vue"
-import {router} from "@/plugins/router"
-import {store} from "@/store/store"
+import Vue from "vue";
+import App from "@/views/App.vue";
+import {router} from "@/plugins/router";
+import {store} from "@/store/store";
 import {i18n} from "@/plugins/i18n";
 import {vuetify} from '@/plugins/vuetify';
-import "@/plugins/firebase";
 import IdPlugin from "@/common/plugins/vue/IdPlugin";
+import "@/plugins/firebase";
+import "@/plugins/validation";
+import "@/layouts/index";
 
 Vue.config.productionTip = false;
 

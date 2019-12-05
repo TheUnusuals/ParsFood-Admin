@@ -1,1 +1,14 @@
-{}
+{
+  "views": {
+    "login": {
+      "errors": {
+        "could-not-login": "Could not login. Check your internet connection.",
+        "invalid-credentials": "Username or password is incorrect."
+      },
+      "login": "Login",
+      "password": "Password",
+      "title": "Login",
+      "username": "Username"
+    }
+  }
+}
