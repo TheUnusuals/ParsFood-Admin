@@ -59,4 +59,4 @@ jobs:
       - name: Install npm dependecies
         run: npm --prefix functions install
       - name: Build Cloud Functions
-        run: npm --prefix functions build
+        run: npm --prefix functions run build
