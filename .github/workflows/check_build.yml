@@ -1,8 +1,9 @@
-name: Build the code in the specified branches (development) to check for errors.
+name: Build the code in the specified branches (development and pull requests) to check for errors.
 on:
   push:
     branches:
       - development
+  pull_request:
 
 jobs:
   build:
@@ -58,4 +59,4 @@ jobs:
       - name: Install npm dependecies
         run: npm --prefix functions install
       - name: Build Cloud Functions
-        run: npm --prefix functions build
+        run: npm --prefix functions run build
