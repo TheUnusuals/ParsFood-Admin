@@ -1,6 +1,7 @@
-import Vue from "vue";
+import Vue, {CreateElement, RenderContext, VNode} from "vue";
 import VueRouter, {Location, RouteConfig} from "vue-router";
 import {initAuth, isLoggedIn} from "@/js/utils/auth-utils";
+import {getFullPageTitle} from "@/js/utils/router-utils";
 
 Vue.use(VueRouter);
 
@@ -14,9 +15,14 @@ export const specialParams = {
 
 const routes: RouteConfig[] = [
     {
+        name: "home",
+        path: "/",
+        meta: {title: "views.home.title"}
+    },
+    {
         name: "login",
         path: "/login",
-        meta: {layout: "empty", noAuth: true},
+        meta: {title: "views.login.title", layout: "empty", noAuth: true},
         props: (route) => ({redirectTo: route.query[specialParams.redirectTo]}),
         component: () => import("@/views/LoginView.vue"),
         beforeEnter(to, from, next) {
@@ -24,6 +30,15 @@ const routes: RouteConfig[] = [
                 next(defaultPage);
             }
             next();
+        }
+    },
+    {
+        name: "404",
+        path: "*",
+        component: {
+            render(createElement: CreateElement, context: RenderContext): VNode {
+                return createElement("div", ["404"])
+            }
         }
     }
 ];
@@ -50,4 +65,8 @@ router.beforeEach(async (to, from, next) => {
     }
 
     next();
+});
+
+router.afterEach((to, from) => {
+    document.title = getFullPageTitle(to);
 });

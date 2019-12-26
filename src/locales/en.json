@@ -1,5 +1,24 @@
 {
+  "app": {
+    "title": "ParsFood - Admin"
+  },
+  "common": {
+    "snackbar": {
+      "close": "Close"
+    }
+  },
+  "components": {
+    "navigation": {
+      "errors": {
+        "failed-to-logout": "Failed to logout."
+      },
+      "logout": "Logout"
+    }
+  },
   "views": {
+    "home": {
+      "title": "Home"
+    },
     "login": {
       "errors": {
         "could-not-login": "Could not login. Check your internet connection.",
