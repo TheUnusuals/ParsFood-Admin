@@ -78,7 +78,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-app-bar color="primary" clipped-left dark app>
-            <v-app-bar-nav-icon @click="drawer = !drawer" v-if="$vuetify.breakpoint.smAndDown"/>
+            <v-app-bar-nav-icon @click="drawer = !drawer" v-if="$vuetify.breakpoint.mdAndDown"/>
 
             <v-toolbar-title>
                 <!-- todo: change with a site logo -->
