@@ -34,7 +34,8 @@ const routes: RouteConfig[] = [
     },
     {
         name: "404",
-        path: "*",
+        path: "/404",
+        alias: "*",
         component: {
             render(createElement: CreateElement, context: RenderContext): VNode {
                 return createElement("div", ["404"])
