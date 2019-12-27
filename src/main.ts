@@ -7,6 +7,7 @@ import {store} from "@/store/store";
 import {i18n} from "@/plugins/i18n";
 import {vuetify} from '@/plugins/vuetify';
 import IdPlugin from "@/common/plugins/vue/IdPlugin";
+import DependencyPlugin from "@/common/plugins/vue/DependencyPlugin";
 import "@/plugins/firebase";
 import "@/plugins/validation";
 import "@/layouts/index";
@@ -14,6 +15,7 @@ import "@/layouts/index";
 Vue.config.productionTip = false;
 
 Vue.use(IdPlugin);
+Vue.use(DependencyPlugin);
 
 new Vue({
     router: router,

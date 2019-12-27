@@ -1,5 +1,24 @@
 {
+  "app": {
+    "title": "ParsFood - Administracija"
+  },
+  "common": {
+    "snackbar": {
+      "close": "Uždaryti"
+    }
+  },
+  "components": {
+    "navigation": {
+      "errors": {
+        "failed-to-logout": "Nepavyko atsijungti."
+      },
+      "logout": "Atsijungti"
+    }
+  },
   "views": {
+    "home": {
+      "title": "Pagrindinis"
+    },
     "login": {
       "errors": {
         "could-not-login": "Nepavyko prisijungti. Prašome patikrinti, ar yra interneto ryšys.",

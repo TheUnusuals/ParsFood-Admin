@@ -1,29 +1,31 @@
 <template>
     <v-app>
+        <navigation/>
         <v-content>
             <v-container>
-                <!-- TODO: replace the logout button with a real one -->
-                <v-btn @click="logout">Logout</v-btn>
                 <slot/>
             </v-container>
         </v-content>
+        <messages ref="messages"/>
     </v-app>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {firebaseAuth} from "@/plugins/firebase";
-    import {defaultUnauthorizedPage, router} from "@/plugins/router";
+    import Navigation from "@/components/Navigation.vue";
+    import Messages from "@/components/Messages.vue";
+    import {Ref} from "vue-property-decorator";
 
-    @Component
+    @Component({
+        components: {Messages, Navigation}
+    })
     export default class DefaultLayout extends Vue {
+        @Ref()
+        readonly messages!: Messages;
 
-        // TODO: replace the logout button with the real one
-        async logout() {
-            await firebaseAuth.signOut();
-            await router.push(defaultUnauthorizedPage);
+        mounted() {
+            this.$provide("messages", this.messages);
         }
-
     }
 </script>
