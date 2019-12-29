@@ -3,10 +3,14 @@ import "typeface-roboto";
 import Vue from "vue";
 import Vuetify, {colors} from "vuetify/lib";
 import {Framework} from "vuetify/index";
+import {i18n} from "@/plugins/i18n";
 
 Vue.use(Vuetify);
 
 export const vuetify = new Vuetify({
+    lang: {
+        t: (key: string, ...params) => i18n.t(key, params) as string
+    },
     theme: {
         dark: false,
         themes: {
