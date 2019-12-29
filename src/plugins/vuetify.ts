@@ -1,5 +1,4 @@
 import "@mdi/font/css/materialdesignicons.css";
-import "typeface-roboto";
 import Vue from "vue";
 import Vuetify, {colors} from "vuetify/lib";
 import {Framework} from "vuetify/index";
