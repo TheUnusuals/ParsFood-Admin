@@ -59,7 +59,8 @@
       "errors": {
         "failed-to-logout": "Nepavyko atsijungti."
       },
-      "logout": "Atsijungti"
+      "logout": "Atsijungti",
+      "providers": "Tiekėjai"
     }
   },
   "views": {
@@ -75,6 +76,19 @@
       "password": "Slaptažodis",
       "title": "Prisijungti",
       "username": "Slapyvardis"
+    },
+    "providers": {
+      "create": "Sukurti tiekėją",
+      "list": {
+        "actions": "Veiksmai",
+        "email": "El. paštas",
+        "filter": "Filtruoti",
+        "name": "Pavadinimas",
+        "phone-number": "Tel. numeris",
+        "view": "Peržiūrėti",
+        "website-url": "Internetinis puslapis"
+      },
+      "title": "Tiekėjai"
     }
   }
 }

@@ -40,3 +40,16 @@ declare module "vue/types/vue" {
         $vuetify: Framework
     }
 }
+
+export interface TableHeader {
+    text: string;
+    value: string;
+    align?: "start" | "center" | "end";
+    sortable?: boolean;
+    filterable?: boolean;
+    divider?: boolean;
+    class?: string | string[];
+    width?: string | number;
+    filter?: (value: any, search: string | null, item: any) => boolean;
+    sort?: <T>(a: T, b: T) => number;
+}

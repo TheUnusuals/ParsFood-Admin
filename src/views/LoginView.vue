@@ -52,7 +52,7 @@
     import {RawLocation} from "vue-router";
     import {isLoggedIn} from "@/js/utils/auth-utils";
     import {safeRedirect} from "@/js/utils/router-utils";
-    import {isHttpsError} from "@/js/utils/firebase-utils";
+    import {isHttpsError} from "@/common/js/firebase-utils";
 
     @Component({
         components: {

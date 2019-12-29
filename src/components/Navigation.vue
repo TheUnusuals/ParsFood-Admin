@@ -113,25 +113,8 @@
         get links(): NavigationGroup[] {
             return [
                 {
-                    title: "Main",
                     links: [
-                        {title: "One", icon: "mdi-numeric-1", to: "/one"},
-                        {title: "Two", icon: "mdi-numeric-2", to: "/two"},
-                        {
-                            title: "Three",
-                            icon: "mdi-numeric-3",
-                            children: [
-                                {title: "Sub option 1", to: "/sub-option-1"},
-                                {title: "Sub option 2", to: "/sub-option-2"},
-                                {
-                                    title: "Sub option 3",
-                                    children: [
-                                        {title: "Sub sub option 1", to: "/sub-sub-option-1"},
-                                        {title: "Sub sub option 2", to: "/sub-sub-option-2"},
-                                    ]
-                                },
-                            ]
-                        },
+                        {title: this.$t('components.navigation.providers') as string, to: "/providers"},
                     ]
                 }
             ];

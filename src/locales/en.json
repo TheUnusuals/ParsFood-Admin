@@ -59,7 +59,8 @@
       "errors": {
         "failed-to-logout": "Failed to logout."
       },
-      "logout": "Logout"
+      "logout": "Logout",
+      "providers": "Providers"
     }
   },
   "views": {
@@ -75,6 +76,19 @@
       "password": "Password",
       "title": "Login",
       "username": "Username"
+    },
+    "providers": {
+      "create": "Create provider",
+      "list": {
+        "actions": "Actions",
+        "email": "Email",
+        "filter": "Filter",
+        "name": "Name",
+        "phone-number": "Phone number",
+        "view": "View",
+        "website-url": "Website"
+      },
+      "title": "Providers"
     }
   }
 }

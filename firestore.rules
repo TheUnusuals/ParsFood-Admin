@@ -1,8 +1,20 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
+    match /providers/{id} {
+      allow read: if hasRole('admin') || hasRole('provider-admin') && request.auth.uid in resource.data.assignedAdmins;
     }
+  }
+
+  function hasRole(role) {
+    return isSignedIn() && request.auth.token.role == role;
+  }
+
+  function hasAnyRole(roles) {
+    return isSignedIn() && request.auth.token.role in roles;
+  }
+
+  function isSignedIn() {
+    return request.auth != null;
   }
 }

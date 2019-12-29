@@ -20,6 +20,26 @@ const routes: RouteConfig[] = [
         meta: {title: "views.home.title"}
     },
     {
+        name: "providers",
+        path: "/providers",
+        meta: {title: "views.providers.title"},
+        component: () => import("@/views/providers/ProvidersView.vue")
+    },
+    {
+        path: "/provider",
+        redirect: {name: "providers"},
+        children: [
+            {
+                name: "provider",
+                path: ":providerId"
+            },
+            {
+                name: "create-provider",
+                path: "new"
+            }
+        ]
+    },
+    {
         name: "login",
         path: "/login",
         meta: {title: "views.login.title", layout: "empty", noAuth: true},
