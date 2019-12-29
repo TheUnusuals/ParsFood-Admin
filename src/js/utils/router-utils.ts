@@ -5,7 +5,7 @@ import {i18n} from "@/plugins/i18n";
 export const siteTitle = "app.title";
 
 export function isLocationInternal(location: RawLocation): boolean {
-    return router.resolve(location).route.path !== router.resolve(notFoundPage).route.path;
+    return router.resolve(location).route.name !== notFoundPage.name;
 }
 
 export async function safeRedirect(unsafeLocation: RawLocation, fallbackLocation: RawLocation = defaultPage): Promise<Route> {
