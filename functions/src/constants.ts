@@ -1,5 +1,6 @@
 export const users = {
-    collection: "users"
+    collection: "users",
+    defaultRole: "customer"
 };
 
 export const customUsers = {

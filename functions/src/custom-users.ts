@@ -2,11 +2,8 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import {regionFunctions} from "./region";
 import {customUsers, users} from "./constants";
-
-interface LoginData {
-    username: string | any;
-    password: string | any;
-}
+import {updateCustomUserClaims} from "./users";
+import {CustomUser, User} from "./data";
 
 function getUserId(customUserId: string): string {
     return customUsers.prefix + customUserId;
@@ -16,29 +13,52 @@ async function encryptPassword(password: string): Promise<string> {
     return await require("bcrypt").hash(password, customUsers.saltRounds);
 }
 
-async function createUserFromCustomUser(customUserId: string, username: string): Promise<admin.firestore.WriteResult> {
+async function createUserFromCustomUser(customUserId: string, customUser: CustomUser): Promise<User> {
     const newUser = {
-        username: username
+        username: customUser.username
     };
 
-    return await admin.firestore()
+    await admin.firestore()
         .collection(users.collection)
         .doc(getUserId(customUserId))
         .create(newUser);
-}
 
-async function createUserFromCustomUserIfNotExists(customUserId: string, username: string): Promise<boolean> {
-    const user = await admin.firestore()
+    const userSnapshot = await admin.firestore()
         .collection(users.collection)
-        .doc(customUserId)
+        .doc(getUserId(customUserId))
         .get();
 
-    if (!user.exists) {
-        await createUserFromCustomUser(customUserId, username);
-        return true;
+    return userSnapshot.data() as User;
+}
+
+async function createUserFromCustomUserIfNotExists(customUserId: string, customUser: CustomUser): Promise<User> {
+    const userSnapshot = await admin.firestore()
+        .collection(users.collection)
+        .doc(getUserId(customUserId))
+        .get();
+
+    if (!userSnapshot.exists)
+        return await createUserFromCustomUser(customUserId, customUser);
+
+    return userSnapshot.data() as User;
+}
+
+async function createFirebaseUserIfNotExists(userId: string) {
+    let userRecord: admin.auth.UserRecord;
+
+    try {
+        userRecord = await admin.auth().getUser(userId);
+    } catch (e) {
+        console.log(`Could not find user with id ${userId}.`, e);
+        userRecord = await admin.auth().createUser({uid: userId});
     }
 
-    return false;
+    return userRecord;
+}
+
+interface LoginData {
+    username: string | any;
+    password: string | any;
 }
 
 export const auth_login: any = regionFunctions.https.onCall(async (data: LoginData, context) => {
@@ -50,34 +70,47 @@ export const auth_login: any = regionFunctions.https.onCall(async (data: LoginDa
         throw new functions.https.HttpsError("invalid-argument", "Username or password was not provided.");
     }
 
-    const querySnapshot = await admin.firestore()
+    const userQuerySnapshot = await admin.firestore()
         .collection(customUsers.collection)
         .where("username", "==", data.username)
         .limit(1)
         .get();
 
-    if (querySnapshot.empty) throwInvalid();
+    if (userQuerySnapshot.empty) throwInvalid();
 
-    const customUserDoc = querySnapshot.docs[0];
-    const customUserData = customUserDoc.data();
+    const customUserDoc = userQuerySnapshot.docs[0];
+    const userId = getUserId(customUserDoc.id);
+    const customUser: CustomUser = customUserDoc.data() as CustomUser;
 
-    if (customUserData.encrypted === false) {
-        if (data.password !== customUserData.password) {
+    let user: User | null = null;
+
+    if (customUser.encrypted === false) {
+        if (data.password !== customUser.password) {
             throwInvalid();
         }
 
-        await Promise.all([
+        const results = await Promise.all([
             customUserDoc.ref.update({
-                "password": await encryptPassword(customUserData.password),
+                "password": await encryptPassword(customUser.password),
                 "encrypted": admin.firestore.FieldValue.delete()
             }),
-            createUserFromCustomUserIfNotExists(customUserDoc.ref.id, customUserData.username)
+            createUserFromCustomUserIfNotExists(customUserDoc.id, customUser),
+            createFirebaseUserIfNotExists(userId)
         ]);
-    } else if (!await require("bcrypt").compare(data.password, customUserData.password)) {
+
+        user = results[1];
+    } else if (!await require("bcrypt").compare(data.password, customUser.password)) {
         throwInvalid();
     }
 
-    return await admin.auth().createCustomToken(getUserId(customUserDoc.id));
+    if (!user) {
+        const userSnapshot = await admin.firestore().collection(users.collection).doc(userId).get();
+        user = userSnapshot.data() as User;
+    }
+
+    await updateCustomUserClaims(userId, user);
+
+    return await admin.auth().createCustomToken(userId);
 });
 
 interface RegisterData {
@@ -114,5 +147,7 @@ export const auth_register: any = regionFunctions.https.onCall(async (data: Regi
         transaction.create(customUserRef, newCustomUser);
     });
 
-    await createUserFromCustomUserIfNotExists(customUserRef.id, data.username);
+    const customUserSnapshot = await customUserRef.get();
+
+    await createUserFromCustomUserIfNotExists(customUserRef.id, customUserSnapshot.data() as CustomUser);
 });
