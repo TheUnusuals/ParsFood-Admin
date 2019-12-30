@@ -1,0 +1,171 @@
+<template>
+    <v-container>
+        <v-container>
+            <v-card :loading="loading" :disabled="disabled">
+                <v-card-title>{{$t('views.providerInfo.title')}}</v-card-title>
+                <v-card-text v-if="!editing">
+                    <div class="d-flex justify-space-between">
+                        <div>
+                            <div>
+                                <strong>{{$t('views.providerInfo.name')}}</strong> {{provider.name}}
+                            </div>
+                            <div>
+                                <strong>{{$t('views.providerInfo.websiteUrl')}}</strong> {{provider.websiteUrl}}
+                            </div>
+                            <div>
+                                <strong>{{$t('views.providerInfo.phoneNumber')}}</strong> {{provider.phoneNumber}}
+                            </div>
+                            <div>
+                                <strong>{{$t('views.providerInfo.email')}}</strong> {{provider.email}}
+                            </div>
+                        </div>
+                        <img :src="provider.logo"
+                             :alt="provider.name" style="height: 100px; width: auto">
+                    </div>
+                    <v-btn class="ma-2" @click="editing=true" outlined color="primary">
+                        {{$t('views.providerInfo.edit')}}
+                    </v-btn>
+                </v-card-text>
+                <v-card-text v-if="editing">
+                    <validation-observer v-slot="{handleSubmit}">
+                        <v-form @submit.prevent="handleSubmit(submit)">
+                            <v-row>
+                                <v-col cols="12" sm="6" md="6">
+                                    <validation-provider :name="$t('views.providerInfo.name')"
+                                                         rules="required"
+                                                         v-slot="{ errors }"
+                                                         slim>
+                                        <v-text-field v-model="provider.name"
+                                                      :label="$t('views.providerInfo.name')"
+                                                      outlined
+                                                      :error-messages="errors"
+                                                      required/>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="6">
+                                    <validation-provider :name="$t('views.providerInfo.websiteUrl')"
+                                                         rules="required"
+                                                         v-slot="{ errors }"
+                                                         slim>
+                                        <v-text-field v-model="provider.websiteUrl"
+                                                      :label="$t('views.providerInfo.websiteUrl')"
+                                                      outlined
+                                                      :error-messages="errors"
+                                                      required/>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="3">
+                                    <validation-provider :name="$t('views.providerInfo.phoneNumber')"
+                                                         rules="required"
+                                                         v-slot="{ errors }"
+                                                         slim>
+                                        <v-text-field v-model="provider.phoneNumber"
+                                                      :label="$t('views.providerInfo.phoneNumber')"
+                                                      outlined
+                                                      :error-messages="errors"
+                                                      required/>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="6">
+                                    <validation-provider :name="$t('views.providerInfo.email')"
+                                                         rules="required|email"
+                                                         v-slot="{ errors }"
+                                                         slim>
+                                        <v-text-field v-model="provider.email"
+                                                      :label="$t('views.providerInfo.email')"
+                                                      outlined
+                                                      :error-messages="errors"
+                                                      required/>
+                                    </validation-provider>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="3">
+                                    <validation-provider :name="$t('views.providerInfo.logo')"
+                                                         rules="required"
+                                                         v-slot="{ errors }"
+                                                         slim>
+                                        <v-text-field v-model="provider.logo"
+                                                      :label="$t('views.providerInfo.logo')"
+                                                      outlined
+                                                      :error-messages="errors"
+                                                      required/>
+                                    </validation-provider>
+                                </v-col>
+                            </v-row>
+                            <v-btn class="ma-2" type="submit" outlined color="primary">
+                                {{$t('views.providerInfo.save')}}
+                            </v-btn>
+                            <v-btn class="ma-2" @click="editing=false" outlined color="error">
+                                {{$t('views.providerInfo.cancel')}}
+                            </v-btn>
+                        </v-form>
+                    </validation-observer>
+                </v-card-text>
+            </v-card>
+        </v-container>
+    </v-container>
+
+</template>
+
+<script lang="ts">
+    import Vue from "vue";
+    import Component from "vue-class-component";
+    import {ValidationObserver, ValidationProvider} from "vee-validate";
+    import {getDocument, setDocument} from "@/common/js/firestore-utils";
+    import {Provider} from "@/data/Provider";
+    import {Prop} from "vue-property-decorator";
+    import Messages from "@/components/Messages.vue";
+
+    @Component({
+        components: {
+            ValidationProvider,
+            ValidationObserver
+        }
+    })
+    export default class ProviderInfoAndEdit extends Vue {
+        @Prop({required: true})
+        readonly providerId!: string;
+
+        loading: boolean = false;
+        disabled: boolean = false;
+        editing: boolean = false;
+
+        provider: Provider = {
+            id: "",
+            name: "",
+            websiteUrl: "",
+            phoneNumber: "",
+            email: "",
+            logo: ""
+        };
+
+        get messages(): Messages {
+            return this.$inject("messages");
+        }
+
+        async mounted() {
+            this.loading = true;
+            this.disabled = true;
+            try {
+                this.provider = await getDocument<Provider>(this.providerId, {collectionPath: "/providers"});
+                this.disabled = false;
+            } catch (error) {
+                await this.messages.showError(this.$t("views.providerInfo.messages.could-not-get-provider-data") as string);
+            }
+            this.loading = false;
+        }
+
+        async submit() {
+            this.loading = true;
+            this.disabled = true;
+            try {
+                await setDocument(this.provider, {collectionPath: "/providers"});
+                await this.messages.showSuccess(this.$t("views.providerInfo.messages.save-success") as string);
+            } catch (error) {
+                await this.messages.showError(this.$t("views.providerInfo.messages.could-not-save-provider-data") as string);
+            }
+            this.loading = false;
+            this.disabled = false;
+            this.editing = false;
+        }
+    }
+</script>

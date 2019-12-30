@@ -33,6 +33,12 @@ const routes: RouteConfig[] = [
         }
     },
     {
+        name: "provider",
+        path: "/provider/:providerId",
+        props: (route) => ({providerId: route.params.providerId}),
+        component: ()=> import("@/views/ProviderInfoAndEdit.vue")
+    },
+    {
         name: "404",
         path: "/404",
         alias: "*",

@@ -28,6 +28,22 @@
       "password": "Password",
       "title": "Login",
       "username": "Username"
+    },
+    "providerInfo": {
+      "name": "Name",
+      "phoneNumber": "Phone Number",
+      "email": "E-mail",
+      "websiteUrl": "Website URL",
+      "logo": "Logo",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "title": "Provider information and edit",
+      "messages": {
+        "could-not-get-provider-data": "Could not get provider data",
+        "could-not-save-provider-data": "Could not save provider data",
+        "save-success": "Changes saved successfully"
+      }
     }
   }
 }
