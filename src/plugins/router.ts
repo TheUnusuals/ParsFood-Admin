@@ -28,10 +28,18 @@ const routes: RouteConfig[] = [
     {
         path: "/provider",
         redirect: {name: "providers"},
+        component: {
+            render(createElement: CreateElement, context: RenderContext): VNode {
+                return createElement("router-view")
+            }
+        },
         children: [
             {
-                name: "provider",
-                path: ":providerId"
+                name: "provider-info",
+                path: ":providerId",
+                props: (route) => ({providerId: route.params.providerId}),
+                meta: {title: "views.provider-info.title"},
+                component: () => import("@/views/providers/ProviderInfo.vue")
             },
             {
                 name: "create-provider",
@@ -51,12 +59,6 @@ const routes: RouteConfig[] = [
             }
             next();
         }
-    },
-    {
-        name: "provider",
-        path: "/provider/:providerId",
-        props: (route) => ({providerId: route.params.providerId}),
-        component: ()=> import("@/views/ProviderInfoAndEdit.vue")
     },
     {
         name: "404",

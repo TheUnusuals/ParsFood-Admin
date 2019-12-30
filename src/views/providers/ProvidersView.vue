@@ -22,7 +22,7 @@
                 </div>
             </template>
             <template #item.actions="{ item }">
-                <v-btn :to="{name: 'provider', params: { providerId: item.id }}" color="primary" outlined small>
+                <v-btn :to="{name: 'provider-info', params: { providerId: item.id }}" color="primary" outlined small>
                     {{$t('views.providers.list.view')}}
                 </v-btn>
             </template>

@@ -77,19 +77,6 @@
       "title": "Prisijungti",
       "username": "Slapyvardis"
     },
-    "providers": {
-      "create": "Sukurti tiekėją",
-      "list": {
-        "actions": "Veiksmai",
-        "email": "El. paštas",
-        "filter": "Filtruoti",
-        "name": "Pavadinimas",
-        "phone-number": "Tel. numeris",
-        "view": "Peržiūrėti",
-        "website-url": "Internetinis puslapis"
-      },
-      "title": "Tiekėjai"
-    },
     "provider-info": {
       "cancel": "Atšaukti",
       "edit": "Koreguoti",
@@ -105,6 +92,19 @@
       "save": "Išsaugoti",
       "title": "Tiekėjo informacija",
       "website-url": "Nuorada į puslapį"
+    },
+    "providers": {
+      "create": "Sukurti tiekėją",
+      "list": {
+        "actions": "Veiksmai",
+        "email": "El. paštas",
+        "filter": "Filtruoti",
+        "name": "Pavadinimas",
+        "phone-number": "Tel. numeris",
+        "view": "Peržiūrėti",
+        "website-url": "Nuorada į puslapį"
+      },
+      "title": "Tiekėjai"
     }
   }
 }

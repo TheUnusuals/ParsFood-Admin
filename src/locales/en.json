@@ -77,19 +77,6 @@
       "title": "Login",
       "username": "Username"
     },
-    "providers": {
-      "create": "Create provider",
-      "list": {
-        "actions": "Actions",
-        "email": "Email",
-        "filter": "Filter",
-        "name": "Name",
-        "phone-number": "Phone number",
-        "view": "View",
-        "website-url": "Website"
-      },
-      "title": "Providers"
-    },
     "provider-info": {
       "cancel": "Cancel",
       "edit": "Edit",
@@ -105,6 +92,19 @@
       "save": "Save changes",
       "title": "Provider information",
       "website-url": "Website URL"
+    },
+    "providers": {
+      "create": "Create provider",
+      "list": {
+        "actions": "Actions",
+        "email": "Email",
+        "filter": "Filter",
+        "name": "Name",
+        "phone-number": "Phone number",
+        "view": "View",
+        "website-url": "Website URL"
+      },
+      "title": "Providers"
     }
   }
 }
