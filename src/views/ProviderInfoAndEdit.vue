@@ -78,15 +78,15 @@
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="3">
+                                    <!-- todo: add an upload button -->
                                     <validation-provider :name="$t('views.provider-info.logo')"
-                                                         rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.logo"
                                                       :label="$t('views.provider-info.logo')"
                                                       outlined
                                                       :error-messages="errors"
-                                                      required/>
+                                        />
                                     </validation-provider>
                                 </v-col>
                             </v-row>
