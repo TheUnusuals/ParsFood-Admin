@@ -122,7 +122,7 @@
 
         get messages(): Messages {
             return this.$inject("messages");
-        };
+        }
 
         get title() {
             return getPageTitle(this.$route);

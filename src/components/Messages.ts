@@ -7,6 +7,8 @@ declare module "@/components/Messages.vue" {
 
         showError(message: string): Promise<void>;
 
+        showSuccess(message: string): Promise<void>;
+
         showInfo(message: string): Promise<void>;
 
         showWarning(message: string): Promise<void>;
@@ -15,4 +17,4 @@ declare module "@/components/Messages.vue" {
     }
 }
 
-export type MessageType = "error" | "info" | "warning";
+export type MessageType = "error" | "info" | "warning" | "success";

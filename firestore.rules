@@ -3,6 +3,11 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /providers/{id} {
       allow read: if hasRole('admin') || hasRole('provider-admin') && request.auth.uid in resource.data.assignedAdmins;
+  }
+
+  match /databases/{database}/documents {
+    match /providers/{providerId} {
+      allow get, update;
     }
   }
 
