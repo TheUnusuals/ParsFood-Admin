@@ -21,7 +21,7 @@
                         </div>
                         <img :src="provider.logo" :alt="provider.name" style="height: 100px; width: auto">
                     </div>
-                    <v-btn class="ma-2" @click="editing=true" outlined color="primary">
+                    <v-btn class="ma-2" @click="openEdit()" outlined color="primary">
                         {{$t('views.provider-info.edit')}}
                     </v-btn>
                 </v-card-text>
@@ -34,7 +34,7 @@
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
-                                        <v-text-field v-model="provider.name"
+                                        <v-text-field v-model="editedProvider.name"
                                                       :label="$t('views.provider-info.name')"
                                                       outlined
                                                       :error-messages="errors"
@@ -46,7 +46,7 @@
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
-                                        <v-text-field v-model="provider.websiteUrl"
+                                        <v-text-field v-model="editedProvider.websiteUrl"
                                                       :label="$t('views.provider-info.website-url')"
                                                       outlined
                                                       :error-messages="errors"
@@ -58,7 +58,7 @@
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
-                                        <v-text-field v-model="provider.phoneNumber"
+                                        <v-text-field v-model="editedProvider.phoneNumber"
                                                       :label="$t('views.provider-info.phone-number')"
                                                       outlined
                                                       :error-messages="errors"
@@ -70,7 +70,7 @@
                                                          rules="required|email"
                                                          v-slot="{ errors }"
                                                          slim>
-                                        <v-text-field v-model="provider.email"
+                                        <v-text-field v-model="editedProvider.email"
                                                       :label="$t('views.provider-info.email')"
                                                       outlined
                                                       :error-messages="errors"
@@ -82,7 +82,7 @@
                                     <validation-provider :name="$t('views.provider-info.logo')"
                                                          v-slot="{ errors }"
                                                          slim>
-                                        <v-text-field v-model="provider.logo"
+                                        <v-text-field v-model="editedProvider.logo"
                                                       :label="$t('views.provider-info.logo')"
                                                       outlined
                                                       :error-messages="errors"
@@ -137,6 +137,15 @@
             logo: ""
         };
 
+        editedProvider: Provider = {
+            id: "",
+            name: "",
+            websiteUrl: "",
+            phoneNumber: "",
+            email: "",
+            logo: ""
+        };
+
         get messages(): Messages {
             return this.$inject("messages");
         }
@@ -153,18 +162,24 @@
             this.loading = false;
         }
 
+        openEdit() {
+            this.editing = true;
+            this.editedProvider = {...this.provider};
+        }
+
         async submit() {
             this.loading = true;
             this.disabled = true;
             try {
-                await setDocument(this.provider, {collectionPath: "/providers"});
+                await setDocument(this.editedProvider, {collectionPath: "/providers"});
+                this.provider = {...this.editedProvider};
                 await this.messages.showSuccess(this.$t("views.provider-info.messages.save-success") as string);
+                this.editing = false;
             } catch (error) {
                 await this.messages.showError(this.$t("views.provider-info.messages.could-not-save-provider-data") as string);
             }
             this.loading = false;
             this.disabled = false;
-            this.editing = false;
         }
     }
 </script>
