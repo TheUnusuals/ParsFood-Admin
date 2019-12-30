@@ -22,7 +22,8 @@
         colors: { [type in MessageType]: string } = {
             error: "error",
             info: "info",
-            warning: "warning"
+            warning: "warning",
+            success: "success"
         };
 
         async show(type: MessageType, message: string) {
@@ -35,6 +36,10 @@
 
         async showError(message: string) {
             await this.show("error", message);
+        }
+
+        async showSuccess(message: string) {
+            await this.show("success", message);
         }
 
         async showInfo(message: string) {

@@ -28,6 +28,22 @@
       "password": "Slaptažodis",
       "title": "Prisijungti",
       "username": "Slapyvardis"
+    },
+    "provider-info": {
+      "cancel": "Atšaukti",
+      "edit": "Koreguoti",
+      "email": "El. paštas",
+      "logo": "Logotipas",
+      "messages": {
+        "could-not-get-provider-data": "Nepavyko gauti tiekėjo duomenų.",
+        "could-not-save-provider-data": "Nepavyko išsaugoti tiekėjo duomenų.",
+        "save-success": "Pakeitimai išsaugoti."
+      },
+      "name": "Pavadinimas",
+      "phone-number": "Telefono numeris",
+      "save": "Išsaugoti",
+      "title": "Tiekėjo informacija",
+      "website-url": "Nuorada į puslapį"
     }
   }
 }
