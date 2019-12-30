@@ -2,28 +2,27 @@
     <v-container>
         <v-container>
             <v-card :loading="loading" :disabled="disabled">
-                <v-card-title>{{$t('views.providerInfo.title')}}</v-card-title>
+                <v-card-title>{{$t('views.provider-info.title')}}</v-card-title>
                 <v-card-text v-if="!editing">
                     <div class="d-flex justify-space-between">
                         <div>
                             <div>
-                                <strong>{{$t('views.providerInfo.name')}}</strong> {{provider.name}}
+                                <strong>{{$t('views.provider-info.name')}}:</strong> {{provider.name}}
                             </div>
                             <div>
-                                <strong>{{$t('views.providerInfo.websiteUrl')}}</strong> {{provider.websiteUrl}}
+                                <strong>{{$t('views.provider-info.website-url')}}:</strong> {{provider.websiteUrl}}
                             </div>
                             <div>
-                                <strong>{{$t('views.providerInfo.phoneNumber')}}</strong> {{provider.phoneNumber}}
+                                <strong>{{$t('views.provider-info.phone-number')}}:</strong> {{provider.phoneNumber}}
                             </div>
                             <div>
-                                <strong>{{$t('views.providerInfo.email')}}</strong> {{provider.email}}
+                                <strong>{{$t('views.provider-info.email')}}:</strong> {{provider.email}}
                             </div>
                         </div>
-                        <img :src="provider.logo"
-                             :alt="provider.name" style="height: 100px; width: auto">
+                        <img :src="provider.logo" :alt="provider.name" style="height: 100px; width: auto">
                     </div>
                     <v-btn class="ma-2" @click="editing=true" outlined color="primary">
-                        {{$t('views.providerInfo.edit')}}
+                        {{$t('views.provider-info.edit')}}
                     </v-btn>
                 </v-card-text>
                 <v-card-text v-if="editing">
@@ -31,60 +30,60 @@
                         <v-form @submit.prevent="handleSubmit(submit)">
                             <v-row>
                                 <v-col cols="12" sm="6" md="6">
-                                    <validation-provider :name="$t('views.providerInfo.name')"
+                                    <validation-provider :name="$t('views.provider-info.name')"
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.name"
-                                                      :label="$t('views.providerInfo.name')"
+                                                      :label="$t('views.provider-info.name')"
                                                       outlined
                                                       :error-messages="errors"
                                                       required/>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
-                                    <validation-provider :name="$t('views.providerInfo.websiteUrl')"
+                                    <validation-provider :name="$t('views.provider-info.website-url')"
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.websiteUrl"
-                                                      :label="$t('views.providerInfo.websiteUrl')"
+                                                      :label="$t('views.provider-info.website-url')"
                                                       outlined
                                                       :error-messages="errors"
                                                       required/>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="3">
-                                    <validation-provider :name="$t('views.providerInfo.phoneNumber')"
+                                    <validation-provider :name="$t('views.provider-info.phone-number')"
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.phoneNumber"
-                                                      :label="$t('views.providerInfo.phoneNumber')"
+                                                      :label="$t('views.provider-info.phone-number')"
                                                       outlined
                                                       :error-messages="errors"
                                                       required/>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
-                                    <validation-provider :name="$t('views.providerInfo.email')"
+                                    <validation-provider :name="$t('views.provider-info.email')"
                                                          rules="required|email"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.email"
-                                                      :label="$t('views.providerInfo.email')"
+                                                      :label="$t('views.provider-info.email')"
                                                       outlined
                                                       :error-messages="errors"
                                                       required/>
                                     </validation-provider>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="3">
-                                    <validation-provider :name="$t('views.providerInfo.logo')"
+                                    <validation-provider :name="$t('views.provider-info.logo')"
                                                          rules="required"
                                                          v-slot="{ errors }"
                                                          slim>
                                         <v-text-field v-model="provider.logo"
-                                                      :label="$t('views.providerInfo.logo')"
+                                                      :label="$t('views.provider-info.logo')"
                                                       outlined
                                                       :error-messages="errors"
                                                       required/>
@@ -92,10 +91,10 @@
                                 </v-col>
                             </v-row>
                             <v-btn class="ma-2" type="submit" outlined color="primary">
-                                {{$t('views.providerInfo.save')}}
+                                {{$t('views.provider-info.save')}}
                             </v-btn>
                             <v-btn class="ma-2" @click="editing=false" outlined color="error">
-                                {{$t('views.providerInfo.cancel')}}
+                                {{$t('views.provider-info.cancel')}}
                             </v-btn>
                         </v-form>
                     </validation-observer>
@@ -149,7 +148,7 @@
                 this.provider = await getDocument<Provider>(this.providerId, {collectionPath: "/providers"});
                 this.disabled = false;
             } catch (error) {
-                await this.messages.showError(this.$t("views.providerInfo.messages.could-not-get-provider-data") as string);
+                await this.messages.showError(this.$t("views.provider-info.messages.could-not-get-provider-data") as string);
             }
             this.loading = false;
         }
@@ -159,9 +158,9 @@
             this.disabled = true;
             try {
                 await setDocument(this.provider, {collectionPath: "/providers"});
-                await this.messages.showSuccess(this.$t("views.providerInfo.messages.save-success") as string);
+                await this.messages.showSuccess(this.$t("views.provider-info.messages.save-success") as string);
             } catch (error) {
-                await this.messages.showError(this.$t("views.providerInfo.messages.could-not-save-provider-data") as string);
+                await this.messages.showError(this.$t("views.provider-info.messages.could-not-save-provider-data") as string);
             }
             this.loading = false;
             this.disabled = false;
