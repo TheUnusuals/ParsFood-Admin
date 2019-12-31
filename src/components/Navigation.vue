@@ -6,13 +6,14 @@
                              clipped dark app>
             <v-list>
                 <template v-for="(group, i) of links">
-                    <v-divider v-if="i > 0"/>
-                    <v-subheader v-if="group.title">
+                    <v-divider v-if="i > 0" :key="i"/>
+                    <v-subheader v-if="group.title" :key="i">
                         {{group.title}}
                     </v-subheader>
-                    <v-list-item-group>
-                        <template v-for="link of group.links">
+                    <v-list-item-group :key="i">
+                        <template v-for="(link, j) of group.links">
                             <v-list-group :to="link.to"
+                                          :key="j"
                                           @click="link.click && link.click()"
                                           v-if="link.children && link.children.length"
                                           color="white"
@@ -25,8 +26,10 @@
                                         {{link.title}}
                                     </v-list-item-title>
                                 </template>
-                                <template v-for="childLink of link.children">
-                                    <v-list-group :to="childLink.to" @click="childLink.click && childLink.click()"
+                                <template v-for="(childLink, k) of link.children">
+                                    <v-list-group :to="childLink.to"
+                                                  :key="k"
+                                                  @click="childLink.click && childLink.click()"
                                                   v-if="childLink.children && childLink.children.length"
                                                   color="white"
                                                   sub-group no-action>
@@ -38,8 +41,9 @@
                                                 {{childLink.title}}
                                             </v-list-item-title>
                                         </template>
-                                        <template v-for="subChildLink of childLink.children">
+                                        <template v-for="(subChildLink, l) of childLink.children">
                                             <v-list-item :to="subChildLink.to"
+                                                         :key="l"
                                                          @click="subChildLink.click && subChildLink.click()">
                                                 <v-list-item-icon v-if="subChildLink.icon">
                                                     <v-icon>{{subChildLink.icon}}</v-icon>
@@ -51,6 +55,7 @@
                                         </template>
                                     </v-list-group>
                                     <v-list-item :to="childLink.to"
+                                                 :key="k"
                                                  @click="childLink.click && childLink.click()"
                                                  v-else>
                                         <v-list-item-icon v-if="childLink.icon">
@@ -63,6 +68,7 @@
                                 </template>
                             </v-list-group>
                             <v-list-item :to="link.to"
+                                         :key="j"
                                          @click="link.click && link.click()"
                                          v-else>
                                 <v-list-item-icon v-if="link.icon">
