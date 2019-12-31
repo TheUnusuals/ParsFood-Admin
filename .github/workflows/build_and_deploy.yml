@@ -104,3 +104,22 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: firebase deploy --only functions
+  deploy-firestore:
+    name: Deploy Cloud Firestore rules and indexes
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+        with:
+          submodules: recursive
+      - name: Download firebase-tools
+        run: npm -g install firebase-tools
+      - name: Setup Firebase project ID
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECTID: ${{ secrets.FIREBASE_PROJECTID }}
+        run: firebase use $FIREBASE_PROJECTID
+      - name: Deploy Cloud Firestore rules and indexes
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only firestore

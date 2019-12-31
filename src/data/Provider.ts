@@ -4,5 +4,5 @@ export interface Provider {
     phoneNumber: string;
     email: string;
     websiteUrl: string;
-    logo: string;
+    logo?: string;
 }

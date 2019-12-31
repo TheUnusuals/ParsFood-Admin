@@ -11,7 +11,6 @@
     "core-js": "^3.6.1",
     "firebase": "^7.6.1",
     "reflect-metadata": "^0.1.13",
-    "typeface-roboto": "0.0.75",
     "vee-validate": "^3.2.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.0.2",
@@ -22,8 +21,10 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@mdi/font": "^4.7.95",
     "@types/node": "12.12.22",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@vue/cli-plugin-babel": "^4.1.1",
     "@vue/cli-plugin-eslint": "^4.1.1",
     "@vue/cli-plugin-router": "^4.1.1",

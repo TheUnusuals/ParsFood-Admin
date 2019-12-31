@@ -1,4 +1,51 @@
 {
+  "$vuetify": {
+    "calendar": {
+      "moreEvents": "{0} more"
+    },
+    "carousel": {
+      "ariaLabel": {
+        "delimiter": "Carousel slide {0} of {1}"
+      },
+      "next": "Next visual",
+      "prev": "Previous visual"
+    },
+    "close": "Close",
+    "dataFooter": {
+      "firstPage": "First page",
+      "itemsPerPageAll": "All",
+      "itemsPerPageText": "Items per page:",
+      "lastPage": "Last page",
+      "nextPage": "Next page",
+      "pageText": "{0}-{1} of {2}",
+      "prevPage": "Previous page"
+    },
+    "dataIterator": {
+      "loadingText": "Loading items...",
+      "noResultsText": "No matching records found"
+    },
+    "dataTable": {
+      "ariaLabel": {
+        "sortAscending": ": Sorted ascending. Activate to sort descending.",
+        "sortDescending": ": Sorted descending. Activate to remove sorting.",
+        "sortNone": ": Not sorted. Activate to sort ascending."
+      },
+      "itemsPerPageText": "Rows per page:",
+      "sortBy": "Sort by"
+    },
+    "datePicker": {
+      "itemsSelected": "{0} selected"
+    },
+    "fileInput": {
+      "counter": "{0} files",
+      "counterSize": "{0} files ({1} in total)"
+    },
+    "noDataText": "No data available",
+    "timePicker": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
   "app": {
     "title": "ParsFood - Admin"
   },
@@ -12,7 +59,8 @@
       "errors": {
         "failed-to-logout": "Failed to logout."
       },
-      "logout": "Logout"
+      "logout": "Logout",
+      "providers": "Providers"
     }
   },
   "views": {
@@ -44,6 +92,19 @@
       "save": "Save changes",
       "title": "Provider information",
       "website-url": "Website URL"
+    },
+    "providers": {
+      "create": "Create provider",
+      "list": {
+        "actions": "Actions",
+        "email": "Email",
+        "filter": "Filter",
+        "name": "Name",
+        "phone-number": "Phone number",
+        "view": "View",
+        "website-url": "Website URL"
+      },
+      "title": "Providers"
     }
   }
 }

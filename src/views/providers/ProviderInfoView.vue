@@ -120,7 +120,7 @@
             ValidationObserver
         }
     })
-    export default class ProviderInfoAndEdit extends Vue {
+    export default class ProviderInfoView extends Vue {
         @Prop({required: true})
         readonly providerId!: string;
 

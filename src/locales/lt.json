@@ -1,4 +1,51 @@
 {
+  "$vuetify": {
+    "calendar": {
+      "moreEvents": "Daugiau {0}"
+    },
+    "carousel": {
+      "ariaLabel": {
+        "delimiter": "Carousel slide {0} of {1}"
+      },
+      "next": "Kita skaidrė",
+      "prev": "Ankstesnioji skaidrė"
+    },
+    "close": "Uždaryti",
+    "dataFooter": {
+      "firstPage": "Pirmas puslapis",
+      "itemsPerPageAll": "Visi",
+      "itemsPerPageText": "Įrašai per puslapį:",
+      "lastPage": "Paskutinis puslapis",
+      "nextPage": "Kitas puslapis",
+      "pageText": "{0}-{1} iš {2}",
+      "prevPage": "Ankstesnis puslapis"
+    },
+    "dataIterator": {
+      "loadingText": "Kraunama...",
+      "noResultsText": "Nerasta atitinkančių įrašų"
+    },
+    "dataTable": {
+      "ariaLabel": {
+        "sortAscending": ": Išrikiuota didėjimo tvarka. Suaktyvinkite, jei norite rikiuoti mažėjimo tvarka.",
+        "sortDescending": ": Išrikiuota mažėjimo tvarka. Suaktyvinkite, jei norite rikiavimą pašalinti.",
+        "sortNone": ": Nerikiuota. Suaktyvinkite, jei norite rikiuoti didėjimo tvarka."
+      },
+      "itemsPerPageText": "Eilutės per puslapį:",
+      "sortBy": "Rikiuoti pagal"
+    },
+    "datePicker": {
+      "itemsSelected": "{0} pasirinkta"
+    },
+    "fileInput": {
+      "counter": "{0} failų",
+      "counterSize": "{0} failų ({1} iš viso)"
+    },
+    "noDataText": "Nėra duomenų",
+    "timePicker": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
   "app": {
     "title": "ParsFood - Administracija"
   },
@@ -12,7 +59,8 @@
       "errors": {
         "failed-to-logout": "Nepavyko atsijungti."
       },
-      "logout": "Atsijungti"
+      "logout": "Atsijungti",
+      "providers": "Tiekėjai"
     }
   },
   "views": {
@@ -44,6 +92,19 @@
       "save": "Išsaugoti",
       "title": "Tiekėjo informacija",
       "website-url": "Nuorada į puslapį"
+    },
+    "providers": {
+      "create": "Sukurti tiekėją",
+      "list": {
+        "actions": "Veiksmai",
+        "email": "El. paštas",
+        "filter": "Filtruoti",
+        "name": "Pavadinimas",
+        "phone-number": "Tel. numeris",
+        "view": "Peržiūrėti",
+        "website-url": "Nuorada į puslapį"
+      },
+      "title": "Tiekėjai"
     }
   }
 }

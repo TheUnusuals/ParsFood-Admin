@@ -20,6 +20,34 @@ const routes: RouteConfig[] = [
         meta: {title: "views.home.title"}
     },
     {
+        name: "providers",
+        path: "/providers",
+        meta: {title: "views.providers.title"},
+        component: () => import("@/views/providers/ProvidersView.vue")
+    },
+    {
+        path: "/provider",
+        redirect: {name: "providers"},
+        component: {
+            render(createElement: CreateElement, context: RenderContext): VNode {
+                return createElement("router-view")
+            }
+        },
+        children: [
+            {
+                name: "provider-info",
+                path: ":providerId",
+                props: (route) => ({providerId: route.params.providerId}),
+                meta: {title: "views.provider-info.title"},
+                component: () => import("@/views/providers/ProviderInfoView.vue")
+            },
+            {
+                name: "create-provider",
+                path: "new"
+            }
+        ]
+    },
+    {
         name: "login",
         path: "/login",
         meta: {title: "views.login.title", layout: "empty", noAuth: true},
@@ -31,12 +59,6 @@ const routes: RouteConfig[] = [
             }
             next();
         }
-    },
-    {
-        name: "provider",
-        path: "/provider/:providerId",
-        props: (route) => ({providerId: route.params.providerId}),
-        component: ()=> import("@/views/ProviderInfoAndEdit.vue")
     },
     {
         name: "404",
