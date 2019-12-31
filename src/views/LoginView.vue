@@ -50,9 +50,9 @@
     import {defaultPage} from "@/plugins/router";
     import {Prop} from "vue-property-decorator";
     import {RawLocation} from "vue-router";
-    import {isLoggedIn} from "@/js/utils/auth-utils";
     import {safeRedirect} from "@/js/utils/router-utils";
     import {isHttpsError} from "@/common/js/firebase-utils";
+    import {authModule, store} from "@/store/store";
 
     @Component({
         components: {
@@ -76,12 +76,12 @@
         };
 
         mounted() {
-            const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
-                if (isLoggedIn()) {
+            const unsubscribe = store.watch(() => authModule.isLoggedIn, async (isLoggedIn) => {
+                if (isLoggedIn) {
                     unsubscribe();
                     await safeRedirect(this.redirectTo);
                 }
-            });
+            }, {immediate: true});
         }
 
         async submit() {
