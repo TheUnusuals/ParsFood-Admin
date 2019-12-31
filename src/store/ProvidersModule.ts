@@ -1,6 +1,6 @@
-import {Mutation, State, VuexModule} from "@/common/plugins/vuex/vuex-decorators";
+import {Getter, Mutation, State, VuexModule} from "@/common/plugins/vuex/vuex-decorators";
 import {Provider} from "@/data/Provider";
-import {StoreState} from "@/store/store";
+import {authModule, StoreState} from "@/store/store";
 import {FirestoreObjectOptions, subscribeToCollection, updateCollectionFromSnapshot} from "@/common/js/firestore-utils";
 import {firestore} from "firebase/app";
 
@@ -8,10 +8,8 @@ export type ProvidersModuleState = {
     providers: Provider[];
     syncEnabled: boolean;
     syncing: boolean;
-};
 
-const providersCollectionOptions: FirestoreObjectOptions = {
-    collectionPath: "/providers"
+    providersCollectionOptions: FirestoreObjectOptions;
 };
 
 export default class ProvidersModule extends VuexModule<ProvidersModuleState, StoreState> {
@@ -19,6 +17,18 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
     @State providers: Provider[] = [];
     @State syncEnabled: boolean = false;
     @State syncing: boolean = false;
+
+    @Getter
+    get providersCollectionOptions(): FirestoreObjectOptions {
+        return {
+            collectionPath: "/providers",
+            query(collection) {
+                if (authModule.isLoggedIn && !authModule.isAdmin)
+                    return collection.where("assignedAdmins", "array-contains", authModule.firebaseUser!.uid);
+                return collection;
+            }
+        }
+    }
 
     private unsubscribeFromSync?: () => void;
     private firstSync: boolean = true;
@@ -29,6 +39,19 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
     constructor() {
         super();
         this.initVuexModule();
+    }
+
+    init() {
+        this.store.watch(() => authModule.isLoggedIn, (isLoggedIn) => {
+            if (!isLoggedIn) this.stopProviderSync(true);
+        });
+
+        this.store.watch(() => this.providersCollectionOptions, () => {
+            if (this.syncEnabled) {
+                this.stopProviderSync();
+                this.startProviderSync();
+            }
+        });
     }
 
     syncProviders(): () => void {
@@ -52,7 +75,7 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
         if (!this.syncEnabled) {
             this.firstSync = true;
             this.unsubscribeFromSync = subscribeToCollection(
-                providersCollectionOptions,
+                this.providersCollectionOptions,
                 (refPath: string[], snapshot: firestore.QuerySnapshot) => {
                     this.updateProvidersFromSnapshot(refPath, snapshot);
                 }
@@ -61,14 +84,14 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
         }
     }
 
-    private stopProviderSync() {
+    private stopProviderSync(resetProviders: boolean = false) {
         if (this.syncEnabled) {
             if (this.unsubscribeFromSync) {
                 this.unsubscribeFromSync();
                 delete this.unsubscribeFromSync;
             }
 
-            this.setSyncStatus(false, false);
+            this.setSyncStatus(false, false, resetProviders);
         }
     }
 
@@ -76,7 +99,7 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
     private updateProvidersFromSnapshot(refPath: string[], snapshot: firestore.QuerySnapshot) {
         this.providers = updateCollectionFromSnapshot(
             this.firstSync ? [] : this.providers,
-            providersCollectionOptions,
+            this.providersCollectionOptions,
             refPath,
             snapshot
         );
@@ -85,9 +108,11 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
     }
 
     @Mutation
-    private setSyncStatus(enabled: boolean, syncing: boolean) {
+    private setSyncStatus(enabled: boolean, syncing: boolean, resetProviders: boolean = false) {
         this.syncEnabled = enabled;
         this.syncing = syncing;
+
+        if (resetProviders) this.providers = [];
     }
 
 }

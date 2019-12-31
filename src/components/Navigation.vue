@@ -120,7 +120,7 @@
             return [
                 {
                     links: [
-                        {title: this.$t('components.navigation.providers') as string, to: "/providers"},
+                        {title: this.$t("components.navigation.providers") as string, to: "/providers"},
                     ]
                 }
             ];

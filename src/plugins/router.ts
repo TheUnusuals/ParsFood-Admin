@@ -39,7 +39,7 @@ const routes: RouteConfig[] = [
                 path: ":providerId",
                 props: (route) => ({providerId: route.params.providerId}),
                 meta: {title: "views.provider-info.title"},
-                component: () => import("@/views/providers/ProviderInfo.vue")
+                component: () => import("@/views/providers/ProviderInfoView.vue")
             },
             {
                 name: "create-provider",
