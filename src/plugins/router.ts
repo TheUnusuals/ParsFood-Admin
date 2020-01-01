@@ -141,11 +141,6 @@ export const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    if (to.name === "additional-ingredients-groups" && from.name === "provider-info") {
-        console.log(to, from);
-        debugger;
-    }
-
     await initAuth();
 
     if (!isLoggedIn() && !to.meta.noAuth) {
