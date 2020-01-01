@@ -55,7 +55,27 @@
     }
   },
   "components": {
+    "additional-ingredients-group-component": {
+      "add-ingredient": "Add ingredient",
+      "cancel": "Cancel",
+      "create": "Create",
+      "delete": "Delete",
+      "delete-dialog": {
+        "cancel": "Cancel",
+        "title": "Are you sure you want to delete this additional ingredients group?"
+      },
+      "edit": "Edit",
+      "group-not-found": "Additional ingredients group was not found.",
+      "ingredient-name": "Ingredient name",
+      "ingredient-price": "Price (EUR)",
+      "ingredients": "Ingredients",
+      "ingredients-empty": "No ingredients.",
+      "name": "Group name",
+      "title": "Additional ingredients group info",
+      "update": "Update"
+    },
     "navigation": {
+      "additional-ingredients-groups": "Additional ingredients groups",
       "errors": {
         "failed-to-logout": "Failed to logout."
       },
@@ -64,6 +84,48 @@
     }
   },
   "views": {
+    "additional-ingredients-group-create": {
+      "messages": {
+        "failed-to-create-group": "Failed to create additional ingredients group.",
+        "group-created": "Additional ingredients group created successfully."
+      },
+      "title": "Create additional ingredients group"
+    },
+    "additional-ingredients-group-info": {
+      "back": "Back to list",
+      "messages": {
+        "failed-to-delete-group": "Failed to delete additional ingredients group.",
+        "failed-to-update-group": "Failed to upadate additional ingredients group.",
+        "group-deleted": "Additional ingredients group deleted successfully.",
+        "group-updated": "Additional ingredients group updated successfully."
+      },
+      "title": "Additional ingredients group"
+    },
+    "additional-ingredients-groups": {
+      "create": "Create a group",
+      "delete-dialog": {
+        "cancel": "Cancel",
+        "title": "Are you sure you want to delete this group?"
+      },
+      "list": {
+        "actions": "Actions",
+        "delete": "Delete",
+        "duplicate": "Duplicate",
+        "filter": "Filter additional ingredients groups",
+        "ingredients": "Ingredients",
+        "name": "Name",
+        "view": "View"
+      },
+      "messages": {
+        "failed-to-delete-group": "Failed to delete additional ingredients group.",
+        "failed-to-duplicate-group": "Failed to duplicate additional ingredients group.",
+        "group-deleted": "Additional ingredients group deleted successfully.",
+        "group-duplicated": "Additional ingredients group duplicated successfully."
+      },
+      "provider": "Provider",
+      "provider-groups": "Selected provider additional ingredients groups",
+      "title": "Additional ingredients groups"
+    },
     "home": {
       "title": "Home"
     },

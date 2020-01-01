@@ -1,24 +1,30 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /providers/{id} {
-      allow read: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in resource.data.assignedAdmins;
-    }
-
     match /providers/{providerId} {
-      allow update;
+      allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in resource.data.assignedAdmins;
+      allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in resource.data.assignedAdmins;
+
+      match /additional-ingredients-groups/{additionalIngredientsGroupId} {
+        allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+        allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+      }
     }
-  }
 
-  function hasRole(role) {
-    return isSignedIn() && request.auth.token.role == role;
-  }
+    function getProvider(id) {
+      return get(/databases/$(database)/documents/providers/$(id))
+    }
 
-  function hasAnyRole(roles) {
-    return isSignedIn() && request.auth.token.role in roles;
-  }
+    function hasRole(role) {
+      return isSignedIn() && request.auth.token.role == role;
+    }
 
-  function isSignedIn() {
-    return request.auth != null;
+    function hasAnyRole(roles) {
+      return isSignedIn() && request.auth.token.role in roles;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
   }
 }

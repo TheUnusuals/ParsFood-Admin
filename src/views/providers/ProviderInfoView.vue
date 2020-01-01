@@ -110,7 +110,7 @@
     import Component from "vue-class-component";
     import {ValidationObserver, ValidationProvider} from "vee-validate";
     import {getDocument, setDocument} from "@/common/js/firestore-utils";
-    import {Provider} from "@/data/Provider";
+    import {IProvider, Provider} from "@/data/Provider";
     import {Prop} from "vue-property-decorator";
     import Messages from "@/components/Messages.vue";
 
@@ -128,23 +128,9 @@
         disabled: boolean = false;
         editing: boolean = false;
 
-        provider: Provider = {
-            id: "",
-            name: "",
-            websiteUrl: "",
-            phoneNumber: "",
-            email: "",
-            logo: ""
-        };
+        provider: IProvider = new Provider().copy({});
 
-        editedProvider: Provider = {
-            id: "",
-            name: "",
-            websiteUrl: "",
-            phoneNumber: "",
-            email: "",
-            logo: ""
-        };
+        editedProvider: IProvider = new Provider().copy({});
 
         get messages(): Messages {
             return this.$inject("messages");
@@ -154,7 +140,7 @@
             this.loading = true;
             this.disabled = true;
             try {
-                this.provider = await getDocument<Provider>(this.providerId, {collectionPath: "/providers"});
+                this.provider = await getDocument<IProvider>(this.providerId, {collectionPath: "/providers"});
                 this.disabled = false;
             } catch (error) {
                 await this.messages.showError(this.$t("views.provider-info.messages.could-not-get-provider-data") as string);
@@ -164,7 +150,7 @@
 
         openEdit() {
             this.editing = true;
-            this.editedProvider = {...this.provider};
+            Provider.copy(this.provider, this.editedProvider);
         }
 
         async submit() {
@@ -172,7 +158,7 @@
             this.disabled = true;
             try {
                 await setDocument(this.editedProvider, {collectionPath: "/providers"});
-                this.provider = {...this.editedProvider};
+                Provider.copy(this.editedProvider, this.provider);
                 await this.messages.showSuccess(this.$t("views.provider-info.messages.save-success") as string);
                 this.editing = false;
             } catch (error) {
