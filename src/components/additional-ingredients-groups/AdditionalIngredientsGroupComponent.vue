@@ -139,7 +139,7 @@
         disabled: boolean = false;
         editing: boolean = false;
 
-        editedGroup: IAdditionalIngredientGroup = new AdditionalIngredientGroup();
+        editedGroup: IAdditionalIngredientGroup = new AdditionalIngredientGroup().copy({});
 
         @Prop()
         readonly group?: IAdditionalIngredientGroup;
