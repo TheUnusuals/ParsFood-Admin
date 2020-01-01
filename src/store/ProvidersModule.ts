@@ -1,22 +1,29 @@
-import {Getter, Mutation, State, VuexModule} from "@/common/plugins/vuex/vuex-decorators";
-import {Provider} from "@/data/Provider";
+import {Getter} from "@/common/plugins/vuex/vuex-decorators";
+import {IProvider} from "@/data/Provider";
 import {authModule, StoreState} from "@/store/store";
-import {FirestoreObjectOptions, subscribeToCollection, updateCollectionFromSnapshot} from "@/common/js/firestore-utils";
-import {firestore} from "firebase/app";
+import {FirestoreObjectOptions} from "@/common/js/firestore-utils";
+import FirestoreCollectionsModule, {FirestoreCollectionsModuleState} from "@/common/vuex/FirestoreCollectionsModule";
 
-export type ProvidersModuleState = {
-    providers: Provider[];
-    syncEnabled: boolean;
-    syncing: boolean;
+export type ProvidersModuleState = FirestoreCollectionsModuleState<IProvider>;
 
-    providersCollectionOptions: FirestoreObjectOptions;
-};
+const providersCollection: string = "/providers";
 
-export default class ProvidersModule extends VuexModule<ProvidersModuleState, StoreState> {
+export default class ProvidersModule extends FirestoreCollectionsModule<IProvider, ProvidersModuleState, StoreState> {
 
-    @State providers: Provider[] = [];
-    @State syncEnabled: boolean = false;
-    @State syncing: boolean = false;
+    @Getter
+    get providers(): IProvider[] {
+        return this.collections[providersCollection]?.list || [];
+    }
+
+    @Getter
+    get syncEnabled(): boolean {
+        return this.collections[providersCollection]?.syncEnabled || false;
+    }
+
+    @Getter
+    get syncing(): boolean {
+        return this.collections[providersCollection]?.syncing || false;
+    }
 
     @Getter
     get providersCollectionOptions(): FirestoreObjectOptions {
@@ -30,12 +37,6 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
         }
     }
 
-    private unsubscribeFromSync?: () => void;
-    private firstSync: boolean = true;
-    private providersSubscribers: (() => void)[] = [];
-
-    private unsubscribeWaitTime: number = 5000;
-
     constructor() {
         super();
         this.initVuexModule();
@@ -43,76 +44,23 @@ export default class ProvidersModule extends VuexModule<ProvidersModuleState, St
 
     init() {
         this.store.watch(() => authModule.isLoggedIn, (isLoggedIn) => {
-            if (!isLoggedIn) this.stopProviderSync(true);
-        });
-
-        this.store.watch(() => this.providersCollectionOptions, () => {
-            if (this.syncEnabled) {
-                this.stopProviderSync();
-                this.startProviderSync();
-            }
+            if (!isLoggedIn) this.stopCollectionSync(providersCollection, true);
         });
     }
 
-    syncProviders(): () => void {
-        if (!this.syncEnabled || this.providersSubscribers.length === 0)
-            this.startProviderSync();
+    syncProviders(onError?: (error: any) => void): () => void {
+        return this.syncCollection(providersCollection, onError);
+    }
 
-        const unsubscribe = () => {
-            setTimeout(() => {
-                let index = this.providersSubscribers.indexOf(unsubscribe);
-                if (index !== -1) this.providersSubscribers.splice(index, 1);
-                if (this.providersSubscribers.length === 0) this.stopProviderSync();
-            }, this.unsubscribeWaitTime);
+    protected mapCollectionOptions(collectionPath: string): FirestoreObjectOptions {
+        return {
+            collectionPath: collectionPath,
+            query(collection) {
+                if (authModule.isLoggedIn && !authModule.isAdmin)
+                    return collection.where("assignedAdmins", "array-contains", authModule.firebaseUser!.uid);
+                return collection;
+            }
         };
-
-        this.providersSubscribers.push(unsubscribe);
-
-        return unsubscribe;
-    }
-
-    private startProviderSync() {
-        if (!this.syncEnabled) {
-            this.firstSync = true;
-            this.unsubscribeFromSync = subscribeToCollection(
-                this.providersCollectionOptions,
-                (refPath: string[], snapshot: firestore.QuerySnapshot) => {
-                    this.updateProvidersFromSnapshot(refPath, snapshot);
-                }
-            );
-            this.setSyncStatus(true, true);
-        }
-    }
-
-    private stopProviderSync(resetProviders: boolean = false) {
-        if (this.syncEnabled) {
-            if (this.unsubscribeFromSync) {
-                this.unsubscribeFromSync();
-                delete this.unsubscribeFromSync;
-            }
-
-            this.setSyncStatus(false, false, resetProviders);
-        }
-    }
-
-    @Mutation
-    private updateProvidersFromSnapshot(refPath: string[], snapshot: firestore.QuerySnapshot) {
-        this.providers = updateCollectionFromSnapshot(
-            this.firstSync ? [] : this.providers,
-            this.providersCollectionOptions,
-            refPath,
-            snapshot
-        );
-        this.firstSync = false;
-        this.syncing = false;
-    }
-
-    @Mutation
-    private setSyncStatus(enabled: boolean, syncing: boolean, resetProviders: boolean = false) {
-        this.syncEnabled = enabled;
-        this.syncing = syncing;
-
-        if (resetProviders) this.providers = [];
     }
 
 }
