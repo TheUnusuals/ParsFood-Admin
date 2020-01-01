@@ -111,7 +111,7 @@
         "actions": "Actions",
         "delete": "Delete",
         "duplicate": "Duplicate",
-        "filter": "Filter",
+        "filter": "Filter additional ingredients groups",
         "ingredients": "Ingredients",
         "name": "Name",
         "view": "View"
@@ -123,6 +123,7 @@
         "group-duplicated": "Additional ingredients group duplicated successfully."
       },
       "provider": "Provider",
+      "provider-groups": "Selected provider additional ingredients groups",
       "title": "Additional ingredients groups"
     },
     "home": {

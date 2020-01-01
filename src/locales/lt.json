@@ -111,7 +111,7 @@
         "actions": "Veiksmai",
         "delete": "Ištrinti",
         "duplicate": "Duplikuoti",
-        "filter": "Filtruoti",
+        "filter": "Filtruoti papildomų ingredientų grupes",
         "ingredients": "Ingredientai",
         "name": "Pavadinimas",
         "view": "Peržiūrėti"
@@ -123,6 +123,7 @@
         "group-duplicated": "Papildomų ingredientų grupė sėkmingai duplikuota."
       },
       "provider": "Tiekėjas",
+      "provider-groups": "Pasirinkto tiekėjo papildomų ingredientų grupės",
       "title": "Papildomų ingredientų grupės"
     },
     "home": {

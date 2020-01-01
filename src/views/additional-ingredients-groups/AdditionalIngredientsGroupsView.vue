@@ -9,7 +9,7 @@
             </v-btn>
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="pb-0">
             <v-form @submit="changeProvider(selectedProviderId)">
                 <v-autocomplete :items="providersModule.sortedProviders"
                                 v-model="selectedProviderId"
@@ -19,6 +19,10 @@
                                 :label="$t('views.additional-ingredients-groups.provider')"/>
             </v-form>
         </v-card-text>
+
+        <v-card-title class="pt-0">
+            {{$t('views.additional-ingredients-groups.provider-groups')}}:
+        </v-card-title>
 
         <v-data-table :items="groups ? groups.list : []"
                       :headers="headers"
