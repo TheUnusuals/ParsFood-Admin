@@ -128,9 +128,9 @@
         disabled: boolean = false;
         editing: boolean = false;
 
-        provider: IProvider = new Provider();
+        provider: IProvider = new Provider().copy({});
 
-        editedProvider: IProvider = new Provider();
+        editedProvider: IProvider = new Provider().copy({});
 
         get messages(): Messages {
             return this.$inject("messages");
