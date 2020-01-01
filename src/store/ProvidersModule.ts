@@ -30,18 +30,6 @@ export default class ProvidersModule extends FirestoreCollectionsModule<IProvide
         return this.collections[providersCollection]?.syncing || false;
     }
 
-    @Getter
-    get providersCollectionOptions(): FirestoreObjectOptions {
-        return {
-            collectionPath: "/providers",
-            query(collection) {
-                if (authModule.isLoggedIn && !authModule.isAdmin)
-                    return collection.where("assignedAdmins", "array-contains", authModule.firebaseUser!.uid);
-                return collection;
-            }
-        }
-    }
-
     constructor() {
         super();
         this.initVuexModule();
