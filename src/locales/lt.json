@@ -55,6 +55,25 @@
     }
   },
   "components": {
+    "additional-ingredients-group-component": {
+      "add-ingredient": "Pridėti ingredientą",
+      "cancel": "Atšaukti",
+      "create": "Sukurti",
+      "delete": "Ištrinti",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šią papildomų ingredientų grupę?"
+      },
+      "edit": "Koreguoti",
+      "group-not-found": "Papildomų ingredientų grupė nerasta.",
+      "ingredient-name": "Ingrediento pavadinimas",
+      "ingredient-price": "Kaina (EUR)",
+      "ingredients": "Ingredientai",
+      "ingredients-empty": "Nėra ingredientų.",
+      "name": "Grupės pavadinimas",
+      "title": "Papildomų ingredientų grupės info",
+      "update": "Atnaujinti"
+    },
     "navigation": {
       "errors": {
         "failed-to-logout": "Nepavyko atsijungti."
