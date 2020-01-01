@@ -11,7 +11,7 @@
 
         <v-card-text>
             <v-form @submit="changeProvider(selectedProviderId)">
-                <v-autocomplete :items="providers"
+                <v-autocomplete :items="providersModule.sortedProviders"
                                 v-model="selectedProviderId"
                                 :loading="providersModule.syncing"
                                 item-text="name"
@@ -121,10 +121,6 @@
 
         get providersModule() {
             return providersModule;
-        }
-
-        get providers() {
-            return providersModule.providers.map(provider => provider).sort((a, b) => a.name.localeCompare(b.name));
         }
 
         get additionalIngredientGroupOptions(): FirestoreObjectOptions {

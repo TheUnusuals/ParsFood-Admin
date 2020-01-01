@@ -92,12 +92,22 @@ const routes: RouteConfig[] = [
         beforeEnter(to, from, next) {
             const stopProvidersSync = providersModule.syncProviders();
 
-            store.watch(() => providersModule.providers, (providers) => {
-                if (providers.length) {
+            let watching = true;
+            const stopProvidersWatch = store.watch(() => providersModule.syncing, (syncing) => {
+                if (!syncing) {
+                    stopProvidersWatch?.();
                     stopProvidersSync();
-                    next({name: "additional-ingredients-groups", params: {providerId: providers[0].id}});
+
+                    watching = false;
+
+                    next({
+                        name: "additional-ingredients-groups",
+                        params: {providerId: providersModule.sortedProviders[0].id}
+                    });
                 }
             }, {immediate: true});
+
+            if (!watching) stopProvidersWatch();
         }
     },
     {
@@ -131,6 +141,11 @@ export const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    if (to.name === "additional-ingredients-groups" && from.name === "provider-info") {
+        console.log(to, from);
+        debugger;
+    }
+
     await initAuth();
 
     if (!isLoggedIn() && !to.meta.noAuth) {

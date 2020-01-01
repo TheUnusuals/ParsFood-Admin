@@ -16,6 +16,11 @@ export default class ProvidersModule extends FirestoreCollectionsModule<IProvide
     }
 
     @Getter
+    get sortedProviders(): IProvider[] {
+        return this.providers.map(provider => provider).sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    @Getter
     get syncEnabled(): boolean {
         return this.collections[providersCollection]?.syncEnabled || false;
     }
