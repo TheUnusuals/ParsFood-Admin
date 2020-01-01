@@ -75,6 +75,7 @@
       "update": "Atnaujinti"
     },
     "navigation": {
+      "additional-ingredients-groups": "Papildomų ingredientų grupės",
       "errors": {
         "failed-to-logout": "Nepavyko atsijungti."
       },
@@ -83,6 +84,47 @@
     }
   },
   "views": {
+    "additional-ingredients-group-create": {
+      "messages": {
+        "failed-to-create-group": "Nepavyko sukurti papildomų ingredinetų grupės.",
+        "group-created": "Papildomų ingredinetų grupė sėkmingai sukurta."
+      },
+      "title": "Sukurti papildomų ingredientų grupę"
+    },
+    "additional-ingredients-group-info": {
+      "back": "Atgal į sąrašą",
+      "messages": {
+        "failed-to-delete-group": "Nepavyko ištrinti papildomų ingredientų grupės.",
+        "failed-to-update-group": "Nepavyko atnaujinti papildomų ingredientų grupės.",
+        "group-deleted": "Papildomų ingredientų grupė sėkmingai ištrinta.",
+        "group-updated": "Paplidomų ingredientų grupė sėkmingai atnaujinta."
+      },
+      "title": "Papildomų ingredientų grupė"
+    },
+    "additional-ingredients-groups": {
+      "create": "Sukurti grupę",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šią grupę?"
+      },
+      "list": {
+        "actions": "Veiksmai",
+        "delete": "Ištrinti",
+        "duplicate": "Duplikuoti",
+        "filter": "Filtruoti",
+        "ingredients": "Ingredientai",
+        "name": "Pavadinimas",
+        "view": "Peržiūrėti"
+      },
+      "messages": {
+        "failed-to-delete-group": "Nepavyko ištrinti papildomų ingredientų grupės.",
+        "failed-to-duplicate-group": "Nepavyko duplikuoti papildomų ingredientų grupės.",
+        "group-deleted": "Papildomų ingredientų grupė sėkmingai ištrinta.",
+        "group-duplicated": "Papildomų ingredientų grupė sėkmingai duplikuota."
+      },
+      "provider": "Tiekėjas",
+      "title": "Papildomų ingredientų grupės"
+    },
     "home": {
       "title": "Pagrindinis"
     },

@@ -91,7 +91,8 @@
                 <router-link class="white--text" :to="{name: 'home'}">{{$t('app.title')}}</router-link>
             </v-toolbar-title>
 
-            <div class="ml-4 overflow-hidden" style="text-overflow:ellipsis" v-if="title !== $t('app.title')">
+            <div class="ml-4 overflow-hidden" style="text-overflow:ellipsis;max-height:100%"
+                 v-if="title !== $t('app.title')">
                 {{title}}
             </div>
 
@@ -120,7 +121,11 @@
             return [
                 {
                     links: [
-                        {title: this.$t("components.navigation.providers") as string, to: "/providers"},
+                        {title: this.$t("components.navigation.providers") as string, to: {name: "providers"}},
+                        {
+                            title: this.$t("components.navigation.additional-ingredients-groups") as string,
+                            to: {name: "additional-ingredients-groups-default"}
+                        },
                     ]
                 }
             ];

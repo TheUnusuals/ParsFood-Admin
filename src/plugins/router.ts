@@ -1,7 +1,8 @@
-import Vue, {CreateElement, RenderContext, VNode} from "vue";
+import Vue, {ComponentOptions, CreateElement, RenderContext, VNode} from "vue";
 import VueRouter, {Location, RouteConfig} from "vue-router";
 import {initAuth, isLoggedIn} from "@/js/utils/auth-utils";
 import {getFullPageTitle} from "@/js/utils/router-utils";
+import {providersModule, store} from "@/store/store";
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,12 @@ export const notFoundPage: Location = {name: "404"};
 
 export const specialParams = {
     redirectTo: "redirectTo"
+};
+
+const routerViewComponent: ComponentOptions<Vue> = {
+    render(createElement: CreateElement) {
+        return createElement("router-view")
+    }
 };
 
 const routes: RouteConfig[] = [
@@ -28,11 +35,7 @@ const routes: RouteConfig[] = [
     {
         path: "/provider",
         redirect: {name: "providers"},
-        component: {
-            render(createElement: CreateElement, context: RenderContext): VNode {
-                return createElement("router-view")
-            }
-        },
+        component: routerViewComponent,
         children: [
             {
                 name: "provider-info",
@@ -44,8 +47,58 @@ const routes: RouteConfig[] = [
             {
                 name: "create-provider",
                 path: "new"
-            }
+            },
+            {
+                path: ":providerId",
+                component: routerViewComponent,
+                children: [
+                    {
+                        name: "additional-ingredients-groups",
+                        path: "additional-ingredients-groups",
+                        props: (route) => ({providerId: route.params.providerId}),
+                        meta: {title: "views.additional-ingredients-groups.title"},
+                        component: () => import("@/views/additional-ingredients-groups/AdditionalIngredientsGroupsView.vue")
+                    },
+                    {
+                        path: "additional-ingredients-group",
+                        component: routerViewComponent,
+                        children: [
+                            {
+                                name: "create-additional-ingredients-group",
+                                path: "new",
+                                props: (route) => ({providerId: route.params.providerId}),
+                                meta: {title: "views.additional-ingredients-group-create.title"},
+                                component: () => import("@/views/additional-ingredients-groups/AdditionalIngredientsGroupCreateView.vue")
+                            },
+                            {
+                                name: "additional-ingredients-group-info",
+                                path: ":additionalIngredientsGroupId",
+                                props: (route) => ({
+                                    providerId: route.params.providerId,
+                                    additionalIngredientsGroupId: route.params.additionalIngredientsGroupId
+                                }),
+                                meta: {title: "views.additional-ingredients-group-info.title"},
+                                component: () => import("@/views/additional-ingredients-groups/AdditionalIngredientsGroupInfoView.vue")
+                            }
+                        ]
+                    }
+                ]
+            },
         ]
+    },
+    {
+        name: "additional-ingredients-groups-default",
+        path: "/additional-ingredients-groups",
+        beforeEnter(to, from, next) {
+            const stopProvidersSync = providersModule.syncProviders();
+
+            store.watch(() => providersModule.providers, (providers) => {
+                if (providers.length) {
+                    stopProvidersSync();
+                    next({name: "additional-ingredients-groups", params: {providerId: providers[0].id}});
+                }
+            }, {immediate: true});
+        }
     },
     {
         name: "login",

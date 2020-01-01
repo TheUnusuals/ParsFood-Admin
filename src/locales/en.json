@@ -75,6 +75,7 @@
       "update": "Update"
     },
     "navigation": {
+      "additional-ingredients-groups": "Additional ingredients groups",
       "errors": {
         "failed-to-logout": "Failed to logout."
       },
@@ -83,6 +84,47 @@
     }
   },
   "views": {
+    "additional-ingredients-group-create": {
+      "messages": {
+        "failed-to-create-group": "Failed to create additional ingredients group.",
+        "group-created": "Additional ingredients group created successfully."
+      },
+      "title": "Create additional ingredients group"
+    },
+    "additional-ingredients-group-info": {
+      "back": "Back to list",
+      "messages": {
+        "failed-to-delete-group": "Failed to delete additional ingredients group.",
+        "failed-to-update-group": "Failed to upadate additional ingredients group.",
+        "group-deleted": "Additional ingredients group deleted successfully.",
+        "group-updated": "Additional ingredients group updated successfully."
+      },
+      "title": "Additional ingredients group"
+    },
+    "additional-ingredients-groups": {
+      "create": "Create a group",
+      "delete-dialog": {
+        "cancel": "Cancel",
+        "title": "Are you sure you want to delete this group?"
+      },
+      "list": {
+        "actions": "Actions",
+        "delete": "Delete",
+        "duplicate": "Duplicate",
+        "filter": "Filter",
+        "ingredients": "Ingredients",
+        "name": "Name",
+        "view": "View"
+      },
+      "messages": {
+        "failed-to-delete-group": "Failed to delete additional ingredients group.",
+        "failed-to-duplicate-group": "Failed to duplicate additional ingredients group.",
+        "group-deleted": "Additional ingredients group deleted successfully.",
+        "group-duplicated": "Additional ingredients group duplicated successfully."
+      },
+      "provider": "Provider",
+      "title": "Additional ingredients groups"
+    },
     "home": {
       "title": "Home"
     },
