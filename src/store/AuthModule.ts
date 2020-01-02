@@ -1,40 +1,43 @@
-import {Mutation, State, VuexModule} from "@/common/plugins/vuex/vuex-decorators";
+import {Getter, Mutation, State, VuexModule} from "@/common/plugins/vuex/vuex-decorators";
 import firebase from "firebase/app";
 import {StoreState} from "@/store/store";
 import {firebaseAuth} from "@/plugins/firebase";
 import {Role} from "@/data/Role";
 
 export type AuthModuleState = {
-    user: firebase.User | null;
+    authInitialized: boolean;
+    firebaseUser: firebase.User | null;
     token: firebase.auth.IdTokenResult | null;
 };
 
 export default class AuthModule extends VuexModule<AuthModuleState, StoreState> {
 
+    @State authInitialized: boolean = false;
+
     @State firebaseUser: firebase.User | null = null;
     @State token: firebase.auth.IdTokenResult | null = null;
 
-    get isLoggedIn(): boolean {
+    @Getter get isLoggedIn(): boolean {
         return this.firebaseUser !== null && !this.firebaseUser.isAnonymous;
     }
 
-    get role(): Role | null | undefined {
-        return this.token === null ? null : this.token.claims.role;
+    @Getter get role(): Role | null {
+        return this.token === null ? null : this.token.claims.role || "customer";
     }
 
-    get isAdmin(): boolean {
+    @Getter get isAdmin(): boolean {
         return this.role === "admin";
     }
 
-    get isProviderAdmin(): boolean {
+    @Getter get isProviderAdmin(): boolean {
         return this.role === "provider_admin";
     }
 
-    get isProviderWorker(): boolean {
+    @Getter get isProviderWorker(): boolean {
         return this.role === "provider_worker";
     }
 
-    get isCustomer(): boolean {
+    @Getter get isCustomer(): boolean {
         return this.role === "customer";
     }
 
@@ -43,14 +46,38 @@ export default class AuthModule extends VuexModule<AuthModuleState, StoreState> 
         this.initVuexModule();
     }
 
-    init() {
+    async init() {
         this.store.watch(() => this.firebaseUser, async (firebaseUser) => {
             this.setToken(firebaseUser ? await firebaseUser.getIdTokenResult() : null);
         }, {immediate: true});
 
-        firebaseAuth.onAuthStateChanged(async (user) => {
+        firebaseAuth.onAuthStateChanged((user) => {
             this.setUser(user);
         });
+
+        await this.initAuth();
+    }
+
+    initAuth(): Promise<void> {
+        return new Promise<void>((resolve) => {
+            if (this.authInitialized) {
+                resolve();
+                return;
+            }
+
+            const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
+                unsubscribe?.();
+                this.setAuthInitialized(true);
+                resolve();
+            });
+
+            if (this.authInitialized) unsubscribe();
+        });
+    }
+
+    @Mutation
+    private setAuthInitialized(authInitialized: boolean) {
+        this.authInitialized = authInitialized;
     }
 
     @Mutation

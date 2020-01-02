@@ -21,8 +21,8 @@
         components: {Messages, Navigation}
     })
     export default class DefaultLayout extends Vue {
-        @Ref()
-        readonly messages!: Messages;
+
+        @Ref() readonly messages!: Messages;
 
         mounted() {
             this.$provide("messages", this.messages);

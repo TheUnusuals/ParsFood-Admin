@@ -1,8 +1,7 @@
 import Vue, {ComponentOptions, CreateElement, RenderContext, VNode} from "vue";
 import VueRouter, {Location, RouteConfig} from "vue-router";
-import {initAuth, isLoggedIn} from "@/js/utils/auth-utils";
-import {getFullPageTitle} from "@/js/utils/router-utils";
-import {providersModule, store} from "@/store/store";
+import {getFullPageTitle} from "@/js/router-utils";
+import {authModule, providersModule, routerModule, store} from "@/store/store";
 
 Vue.use(VueRouter);
 
@@ -117,8 +116,9 @@ const routes: RouteConfig[] = [
         props: (route) => ({redirectTo: route.query[specialParams.redirectTo]}),
         component: () => import("@/views/LoginView.vue"),
         beforeEnter(to, from, next) {
-            if (isLoggedIn()) {
+            if (authModule.isLoggedIn) {
                 next(defaultPage);
+                return;
             }
             next();
         }
@@ -141,9 +141,9 @@ export const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    await initAuth();
+    await authModule.initAuth();
 
-    if (!isLoggedIn() && !to.meta.noAuth) {
+    if (!authModule.isLoggedIn && !to.meta.noAuth) {
         next({
             ...defaultUnauthorizedPage,
             query: defaultUnauthorizedPage.query ? {
@@ -161,4 +161,5 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach((to, from) => {
     document.title = getFullPageTitle(to);
+    if (!routerModule.routerInitialized) routerModule.initializeRouter();
 });

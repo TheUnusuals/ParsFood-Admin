@@ -1,6 +1,6 @@
 <template>
     <v-container style="max-width: 400px; margin-top: 60px">
-        <v-card :loading="loading">
+        <v-card :loading="loading" :disabled="loading">
             <v-card-title>{{$t("views.login.title")}}</v-card-title>
 
             <v-card-text v-if="error.show" class="pb-0">
@@ -50,7 +50,7 @@
     import {defaultPage} from "@/plugins/router";
     import {Prop} from "vue-property-decorator";
     import {RawLocation} from "vue-router";
-    import {safeRedirect} from "@/js/utils/router-utils";
+    import {safeRedirect} from "@/js/router-utils";
     import {isHttpsError} from "@/common/js/firebase-utils";
     import {authModule, store} from "@/store/store";
 
@@ -75,13 +75,17 @@
             show: false
         };
 
-        mounted() {
+        beforeMount() {
+            let redirected = false;
             const unsubscribe = store.watch(() => authModule.isLoggedIn, async (isLoggedIn) => {
                 if (isLoggedIn) {
                     unsubscribe();
+                    redirected = true;
                     await safeRedirect(this.redirectTo);
                 }
             }, {immediate: true});
+
+            if (redirected) unsubscribe();
         }
 
         async submit() {

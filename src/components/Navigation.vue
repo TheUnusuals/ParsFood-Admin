@@ -108,7 +108,7 @@
     import Component from "vue-class-component";
     import {firebaseAuth} from "@/plugins/firebase";
     import {defaultUnauthorizedPage, router} from "@/plugins/router";
-    import {getPageTitle} from "@/js/utils/router-utils";
+    import {getPageTitle} from "@/js/router-utils";
     import Messages from "@/components/Messages.vue";
     import {NavigationGroup} from "@/components/Navigation";
 
