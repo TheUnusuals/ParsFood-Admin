@@ -1,4 +1,4 @@
-export interface IAdditionalIngredientGroup {
+export interface IAdditionalIngredientsGroup {
     id: string;
     name: string;
     ingredients: IAdditionalIngredient[];
@@ -9,18 +9,18 @@ export interface IAdditionalIngredient {
     price: number;
 }
 
-export class AdditionalIngredientGroup implements IAdditionalIngredientGroup {
+export class AdditionalIngredientsGroup implements IAdditionalIngredientsGroup {
     constructor(public id: string = "", public name: string = "", public ingredients: AdditionalIngredient[] = []) {
     }
 
-    copy<T extends object = AdditionalIngredientGroup>(to?: T): IAdditionalIngredientGroup & T {
-        return AdditionalIngredientGroup.copy(this, to);
+    copy<T extends object = AdditionalIngredientsGroup>(to?: T): IAdditionalIngredientsGroup & T {
+        return AdditionalIngredientsGroup.copy(this, to);
     }
 
-    static copy<T extends object = AdditionalIngredientGroup>(from: IAdditionalIngredientGroup, to: T = new AdditionalIngredientGroup() as T): IAdditionalIngredientGroup & T {
+    static copy<T extends object = AdditionalIngredientsGroup>(from: IAdditionalIngredientsGroup, to: T = new AdditionalIngredientsGroup() as T): IAdditionalIngredientsGroup & T {
         const copy = Object.assign(to, from);
         copy.ingredients = copy.ingredients.map(
-            additionalIngredient => AdditionalIngredient.copy(additionalIngredient, to instanceof AdditionalIngredientGroup ? undefined : {})
+            additionalIngredient => AdditionalIngredient.copy(additionalIngredient, to instanceof AdditionalIngredientsGroup ? undefined : {})
         );
         return copy;
     }

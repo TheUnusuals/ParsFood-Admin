@@ -125,7 +125,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {AdditionalIngredientGroup, IAdditionalIngredientGroup} from "@/data/AdditionalIngredientGroup";
+    import {AdditionalIngredientsGroup, IAdditionalIngredientsGroup} from "@/data/AdditionalIngredientsGroup";
     import {Prop} from "vue-property-decorator";
     import {ValidationObserver, ValidationProvider} from "vee-validate";
     import ConfirmDialog from "@/components/ConfirmDialog.vue";
@@ -139,19 +139,19 @@
         disabled: boolean = false;
         editing: boolean = false;
 
-        editedGroup: IAdditionalIngredientGroup = new AdditionalIngredientGroup().copy({});
+        editedGroup: IAdditionalIngredientsGroup = new AdditionalIngredientsGroup().copy({});
 
         @Prop()
-        readonly group?: IAdditionalIngredientGroup;
+        readonly group?: IAdditionalIngredientsGroup;
 
         @Prop({required: true})
-        readonly onSave!: (editedGroup: IAdditionalIngredientGroup) => Promise<void>;
+        readonly onSave!: (editedGroup: IAdditionalIngredientsGroup) => Promise<void>;
 
         @Prop({required: true})
         readonly onSaveError!: (error: any) => Promise<void>;
 
         @Prop()
-        readonly onDelete?: (editedGroup: IAdditionalIngredientGroup) => Promise<void>;
+        readonly onDelete?: (editedGroup: IAdditionalIngredientsGroup) => Promise<void>;
 
         @Prop()
         readonly onDeleteError?: (error: any) => Promise<void>;
@@ -168,7 +168,7 @@
 
         edit() {
             this.editing = true;
-            AdditionalIngredientGroup.copy(this.group!, this.editedGroup);
+            AdditionalIngredientsGroup.copy(this.group!, this.editedGroup);
         }
 
         cancel() {

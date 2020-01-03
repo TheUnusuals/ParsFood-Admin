@@ -22,7 +22,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {IAdditionalIngredientGroup} from "@/data/AdditionalIngredientGroup";
+    import {IAdditionalIngredientsGroup} from "@/data/AdditionalIngredientsGroup";
     import {Prop} from "vue-property-decorator";
     import {deleteDocument, FirestoreObjectOptions, setDocument} from "@/common/js/firestore-utils";
     import Messages from "@/components/Messages.vue";
@@ -53,11 +53,11 @@
             return this.$inject("messages");
         }
 
-        get providerGroups(): CollectionSyncedList<IAdditionalIngredientGroup> {
+        get providerGroups(): CollectionSyncedList<IAdditionalIngredientsGroup> {
             return additionalIngredientsGroupsModule.collections[this.providerId];
         }
 
-        get group(): IAdditionalIngredientGroup | undefined {
+        get group(): IAdditionalIngredientsGroup | undefined {
             return this.providerGroups.list.find(group => group.id === this.additionalIngredientsGroupId);
         }
 
@@ -71,7 +71,7 @@
             this.stopGroupsSync();
         }
 
-        async update(editedGroup: IAdditionalIngredientGroup) {
+        async update(editedGroup: IAdditionalIngredientsGroup) {
             await setDocument(editedGroup, this.additionalIngredientGroupOptions);
             await this.messages.showSuccess(this.$t("views.additional-ingredients-group-info.messages.group-updated") as string);
         }

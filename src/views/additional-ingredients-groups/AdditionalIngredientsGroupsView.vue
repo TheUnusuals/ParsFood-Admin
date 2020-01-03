@@ -81,7 +81,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {AdditionalIngredientGroup, IAdditionalIngredientGroup} from "@/data/AdditionalIngredientGroup";
+    import {AdditionalIngredientsGroup, IAdditionalIngredientsGroup} from "@/data/AdditionalIngredientsGroup";
     import {Prop, Watch} from "vue-property-decorator";
     import {ValidationObserver, ValidationProvider} from "vee-validate";
     import {additionalIngredientsGroupsModule, providersModule} from "@/store/store";
@@ -119,7 +119,7 @@
         @Prop({required: true})
         readonly providerId!: string;
 
-        get groups(): CollectionSyncedList<IAdditionalIngredientGroup> {
+        get groups(): CollectionSyncedList<IAdditionalIngredientsGroup> {
             return additionalIngredientsGroupsModule.collections[this.providerId];
         }
 
@@ -177,10 +177,10 @@
             await this.messages.showError(this.$t("views.additional-ingredients-groups.messages.failed-to-delete-group") as string);
         }
 
-        async duplicateGroup(group: IAdditionalIngredientGroup) {
+        async duplicateGroup(group: IAdditionalIngredientsGroup) {
             this.loadingDuplicate = true;
 
-            const groupDuplicate = AdditionalIngredientGroup.copy(group, {});
+            const groupDuplicate = AdditionalIngredientsGroup.copy(group, {});
 
             for (let i = 1; ; i++) {
                 const name = `${groupDuplicate.name} (${i})`;

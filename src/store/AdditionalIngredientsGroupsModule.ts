@@ -1,11 +1,11 @@
 import {authModule, StoreState} from "@/store/store";
-import {IAdditionalIngredientGroup} from "@/data/AdditionalIngredientGroup";
+import {IAdditionalIngredientsGroup} from "@/data/AdditionalIngredientsGroup";
 import {FirestoreObjectOptions} from "@/common/js/firestore-utils";
 import FirestoreCollectionsModule, {FirestoreCollectionsModuleState} from "@/common/vuex/FirestoreCollectionsModule";
 
-export type AdditionalIngredientsGroupsModuleState = FirestoreCollectionsModuleState<IAdditionalIngredientGroup>;
+export type AdditionalIngredientsGroupsModuleState = FirestoreCollectionsModuleState<IAdditionalIngredientsGroup>;
 
-export default class AdditionalIngredientsGroupsModule extends FirestoreCollectionsModule<IAdditionalIngredientGroup, AdditionalIngredientsGroupsModuleState, StoreState> {
+export default class AdditionalIngredientsGroupsModule extends FirestoreCollectionsModule<IAdditionalIngredientsGroup, AdditionalIngredientsGroupsModuleState, StoreState> {
 
     constructor() {
         super();

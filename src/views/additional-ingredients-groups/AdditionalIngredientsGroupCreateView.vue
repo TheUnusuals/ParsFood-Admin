@@ -14,7 +14,7 @@
     import Component from "vue-class-component";
     import AdditionalIngredientsGroupComponent
         from "@/components/additional-ingredients-groups/AdditionalIngredientsGroupComponent.vue";
-    import {IAdditionalIngredientGroup} from "@/data/AdditionalIngredientGroup";
+    import {IAdditionalIngredientsGroup} from "@/data/AdditionalIngredientsGroup";
     import Messages from "@/components/Messages.vue";
     import {addDocument, FirestoreObjectOptions} from "@/common/js/firestore-utils";
     import {Prop} from "vue-property-decorator";
@@ -37,7 +37,7 @@
             return this.$inject("messages");
         }
 
-        async create(group: IAdditionalIngredientGroup) {
+        async create(group: IAdditionalIngredientsGroup) {
             await addDocument(group, this.additionalIngredientGroupOptions);
             await this.messages.showSuccess(this.$t("views.additional-ingredients-group-create.messages.group-created") as string);
             await this.$router.push({name: "additional-ingredients-groups", params: {providerId: this.providerId}});
