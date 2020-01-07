@@ -126,6 +126,10 @@
                             title: this.$t("components.navigation.additional-ingredients-groups") as string,
                             to: {name: "additional-ingredients-groups-default"}
                         },
+                        {
+                            title: this.$t("components.navigation.menu-items") as string,
+                            to: {name: "menu-items-default"}
+                        },
                     ]
                 }
             ];
