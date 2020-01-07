@@ -72,7 +72,7 @@ jobs:
         run: firebase deploy --only hosting:parsfood-admin
   deploy-functions:
     name: Build and deploy Cloud Functions
-    needs: [deploy-firestore, deploy-storage]
+    needs: [build, deploy-firestore, deploy-storage]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
@@ -107,6 +107,7 @@ jobs:
         run: firebase deploy --only functions
   deploy-firestore:
     name: Deploy Cloud Firestore rules and indexes
+    needs: [build]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
@@ -126,7 +127,7 @@ jobs:
         run: firebase deploy --only firestore
   deploy-storage:
     name: Deploy Cloud Storage rules
-    needs: [deploy-firestore]
+    needs: [build, deploy-firestore]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
