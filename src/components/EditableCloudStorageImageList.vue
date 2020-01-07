@@ -132,30 +132,16 @@
                 const ref = await getStorageRef(newImage.image);
                 this.$set(newImage.image, "uploadTask", ref.put(newImage.image.file));
                 await newImage.image.uploadTask;
-                this.allImages[newImage.index] = {
+                this.$set(this.allImages, newImage.index, {
                     new: false,
                     deleted: false,
                     path: ref.fullPath
-                };
+                });
             }
 
-            const imageIndexesToRemove: number[] = [];
-
-            const removeImages = () => {
-                for (let index of imageIndexesToRemove.sort((a, b) => b - a)) {
-                    this.allImages.splice(index, 1);
-                }
-            };
-
-            for (let deletedImage of deletedImages) {
-                const ref = firebaseStorage.ref(deletedImage.image.path);
-
-                try {
-                    await deleteStorageFile(ref);
-                    imageIndexesToRemove.push(deletedImage.index);
-                } finally {
-                    removeImages();
-                }
+            for (let deletedImage of deletedImages.sort((a, b) => b.index - a.index)) {
+                await deleteStorageFile(deletedImage.image.path);
+                this.allImages.splice(deletedImage.index, 1);
             }
 
             return (this.allImages.filter(image => !image.new) as StorageImage[]).map(image => image.path);
