@@ -300,7 +300,7 @@
             ValidationObserver
         }
     })
-    // @ts-config
+    // @ts-ignore
     export default class MenuItemComponent extends Vue {
 
         editedMenuItem: IMenuItem = new MenuItem().copy({});
