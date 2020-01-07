@@ -41,7 +41,7 @@ jobs:
           path: dist
   deploy:
     name: Deploy
-    needs: [build, deploy-functions]
+    needs: [build, deploy-functions, deploy-firestore, deploy-storage]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
@@ -72,6 +72,7 @@ jobs:
         run: firebase deploy --only hosting:parsfood-admin
   deploy-functions:
     name: Build and deploy Cloud Functions
+    needs: [deploy-firestore, deploy-storage]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
@@ -125,6 +126,7 @@ jobs:
         run: firebase deploy --only firestore
   deploy-storage:
     name: Deploy Cloud Storage rules
+    needs: [deploy-firestore]
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout branch
@@ -142,4 +144,3 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: firebase deploy --only storage
-
