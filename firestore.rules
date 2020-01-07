@@ -9,6 +9,11 @@ service cloud.firestore {
         allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
         allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
       }
+
+      match /menu-items/{menuItemId} {
+        allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+        allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+      }
     }
 
     function getProvider(id) {
