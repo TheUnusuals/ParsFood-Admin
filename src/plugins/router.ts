@@ -1,5 +1,5 @@
 import Vue, {ComponentOptions, CreateElement, RenderContext, VNode} from "vue";
-import VueRouter, {Location, RouteConfig} from "vue-router";
+import VueRouter, {Location, NavigationGuard, RouteConfig} from "vue-router";
 import {getFullPageTitle} from "@/js/router-utils";
 import {authModule, providersModule, routerModule, store} from "@/store/store";
 
@@ -18,6 +18,32 @@ const routerViewComponent: ComponentOptions<Vue> = {
         return createElement("router-view")
     }
 };
+
+function getProviderInternalInfoBeforeEnter(redirectTo: Location): NavigationGuard {
+    return (to, from, next) => {
+        const stopProvidersSync = providersModule.syncProviders();
+
+        let watching = true;
+        const stopProvidersWatch = store.watch(() => providersModule.syncing, (syncing) => {
+            if (!syncing) {
+                stopProvidersWatch?.();
+                stopProvidersSync();
+
+                watching = false;
+
+                next({
+                    ...redirectTo,
+                    params: {
+                        ...(redirectTo.params || {}),
+                        providerId: providersModule.sortedProviders[0].id
+                    }
+                });
+            }
+        }, {immediate: true});
+
+        if (!watching) stopProvidersWatch();
+    }
+}
 
 const routes: RouteConfig[] = [
     {
@@ -80,6 +106,36 @@ const routes: RouteConfig[] = [
                                 component: () => import("@/views/additional-ingredients-groups/AdditionalIngredientsGroupInfoView.vue")
                             }
                         ]
+                    },
+                    {
+                        name: "menu-items",
+                        path: "menu-items",
+                        props: (route) => ({providerId: route.params.providerId}),
+                        meta: {title: "views.menu-items.title"},
+                        component: () => import("@/views/menu-items/MenuItemsView.vue")
+                    },
+                    {
+                        path: "menu-item",
+                        component: routerViewComponent,
+                        children: [
+                            {
+                                name: "create-menu-item",
+                                path: "new",
+                                props: (route) => ({providerId: route.params.providerId}),
+                                meta: {title: "views.menu-item-create.title"},
+                                component: () => import("@/views/menu-items/MenuItemCreateView.vue")
+                            },
+                            {
+                                name: "menu-item-info",
+                                path: ":menuItemId",
+                                props: (route) => ({
+                                    providerId: route.params.providerId,
+                                    menuItemId: route.params.menuItemId
+                                }),
+                                meta: {title: "views.menu-item-info.title"},
+                                component: () => import("@/views/menu-items/MenuItemInfoView.vue")
+                            }
+                        ]
                     }
                 ]
             },
@@ -88,26 +144,12 @@ const routes: RouteConfig[] = [
     {
         name: "additional-ingredients-groups-default",
         path: "/additional-ingredients-groups",
-        beforeEnter(to, from, next) {
-            const stopProvidersSync = providersModule.syncProviders();
-
-            let watching = true;
-            const stopProvidersWatch = store.watch(() => providersModule.syncing, (syncing) => {
-                if (!syncing) {
-                    stopProvidersWatch?.();
-                    stopProvidersSync();
-
-                    watching = false;
-
-                    next({
-                        name: "additional-ingredients-groups",
-                        params: {providerId: providersModule.sortedProviders[0].id}
-                    });
-                }
-            }, {immediate: true});
-
-            if (!watching) stopProvidersWatch();
-        }
+        beforeEnter: getProviderInternalInfoBeforeEnter({name: "additional-ingredients-groups"})
+    },
+    {
+        name: "menu-items-default",
+        path: "/menu-items",
+        beforeEnter: getProviderInternalInfoBeforeEnter({name: "menu-items"})
     },
     {
         name: "login",

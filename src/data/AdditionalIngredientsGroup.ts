@@ -1,3 +1,6 @@
+import {firestore} from "firebase/app";
+import {firebaseFirestore} from "@/plugins/firebase";
+
 export interface IAdditionalIngredientsGroup {
     id: string;
     name: string;
@@ -37,4 +40,12 @@ export class AdditionalIngredient implements IAdditionalIngredient {
     static copy<T extends object = AdditionalIngredient>(from: IAdditionalIngredient, to: T = new AdditionalIngredient() as T): IAdditionalIngredient & T {
         return Object.assign(to, from);
     }
+}
+
+export function getAdditionalIngredientsGroupRef(providerId: string, additionalIngredientsGroupId: string): firestore.DocumentReference<IAdditionalIngredientsGroup> {
+    return firebaseFirestore
+        .collection("/providers")
+        .doc(providerId)
+        .collection("/assigned-additional-ingredients-groups")
+        .doc(additionalIngredientsGroupId) as firestore.DocumentReference<IAdditionalIngredientsGroup>;
 }
