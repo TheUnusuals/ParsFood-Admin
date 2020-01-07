@@ -8,7 +8,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {MessageType} from "@/components/Messages";
+    import {MessageOptions, MessageType} from "@/components/Messages";
 
     @Component
     // @ts-ignore
@@ -26,28 +26,31 @@
             success: "success"
         };
 
-        async show(type: MessageType, message: string) {
+        async show(type: MessageType, message: string, options: MessageOptions = {}) {
+            const mergedOptions = {timeout: 10000, ...options};
+
             this.type = type;
             this.message = message;
+            this.timeout = mergedOptions.timeout;
             this.showMessage = false;
             await this.$nextTick();
             this.showMessage = true;
         }
 
-        async showError(message: string) {
-            await this.show("error", message);
+        async showError(message: string, options?: MessageOptions) {
+            await this.show("error", message, options);
         }
 
-        async showSuccess(message: string) {
-            await this.show("success", message);
+        async showSuccess(message: string, options?: MessageOptions) {
+            await this.show("success", message, options);
         }
 
-        async showInfo(message: string) {
-            await this.show("info", message);
+        async showInfo(message: string, options?: MessageOptions) {
+            await this.show("info", message, options);
         }
 
-        async showWarning(message: string) {
-            await this.show("warning", message);
+        async showWarning(message: string, options?: MessageOptions) {
+            await this.show("warning", message, options);
         }
 
         hide() {
