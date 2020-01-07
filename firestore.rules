@@ -1,8 +1,35 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
+    match /providers/{providerId} {
+      allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in resource.data.assignedAdmins;
+      allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in resource.data.assignedAdmins;
+
+      match /additional-ingredients-groups/{additionalIngredientsGroupId} {
+        allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+        allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+      }
+
+      match /menu-items/{menuItemId} {
+        allow read: if !hasAnyRole(['provider_admin', 'provider_worker']) || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+        allow write: if hasRole('admin') || hasRole('provider_admin') && request.auth.uid in getProvider(providerId).data.assignedAdmins;
+      }
+    }
+
+    function getProvider(id) {
+      return get(/databases/$(database)/documents/providers/$(id))
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && request.auth.token.role == role;
+    }
+
+    function hasAnyRole(roles) {
+      return isSignedIn() && request.auth.token.role in roles;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
     }
   }
 }

@@ -11,5 +11,13 @@ export const i18n = new VueI18n({
     messages: {
         "lt": lt,
         "en": en
+    },
+    numberFormats: {
+        "lt": {
+            currency: {style: "currency", currency: "EUR", currencyDisplay: "symbol"}
+        },
+        "en": {
+            currency: {style: "currency", currency: "EUR", currencyDisplay: "symbol"}
+        }
     }
 });

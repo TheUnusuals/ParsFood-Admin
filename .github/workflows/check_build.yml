@@ -1,0 +1,62 @@
+name: Build the code in the specified branches (development and pull requests) to check for errors.
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+        with:
+          submodules: recursive
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install npm dependecies
+        run: npm install
+      - name: Create Firebase config file
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo "export default $FIREBASE_CONFIG" > src/firebase.config.ts
+      - name: Build project
+        run: npm run build
+  build-functions:
+    name: Build Cloud Functions
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+        with:
+          submodules: recursive
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: functions/node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('functions/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install npm dependecies
+        run: npm --prefix functions install
+      - name: Build Cloud Functions
+        run: npm --prefix functions run build

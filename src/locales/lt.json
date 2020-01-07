@@ -1,1 +1,297 @@
-{}
+{
+  "$vee-validate": {
+    "alpha": "Laukelyje {_field_} leidžiamos tik raidės",
+    "alpha_dash": "Laukelyje {_field_} leidžiamos tik raidės, skaičiai bei brūkšneliai",
+    "alpha_num": "Laukelyje {_field_} leidžiamos tik raidės ir skaičiai",
+    "alpha_spaces": "Laukelyje {_field_} leidžiamos tik raidės ir tarpai",
+    "between": "Laukelio {_field_} reikšmė turi būti tarp {min} ir {max}",
+    "confirmed": "Laukelio {_field_} patvirtinimas nesutampa",
+    "digits": "Lauklio {_field_} reikšmė turi buti {length} ženklų(-o) skaitmuo",
+    "dimensions": "{_field_} turi būti {width} px x {height} px",
+    "email": "Laukelis {_field_} turi būti teisinga el. pašto adresas",
+    "excluded": "{_field_} reikšmė nėra leidžiama",
+    "ext": "{_field_} turi būti tinkamas failas",
+    "image": "{_field_} turi būti paveikslėlis",
+    "integer": "{_field_} turi būti sveikas skaičius",
+    "length": "{_field_} turi būti {length} ilgio",
+    "max": "{_field_} negali būti ilgesnis nei {length}",
+    "max_value": "{_field_} turi būti {max} arba mažiau",
+    "mimes": "{_field_}  privalo turėti tinkmą failo tipą",
+    "min": "{_field_} ilgis privalo būti bent {length}",
+    "min_length": "{_field_} kiekis privalo būti bent {length}",
+    "min_value": "{_field_} turi būti {min} arba daugiau",
+    "numeric": "{_field_} turi būti tik skaitmenys",
+    "oneOf": "{_field_} reikšmė nėra leidžiama",
+    "regex": "Laukelio {_field_} formatas netinkamas",
+    "required": "Laukelis {_field_} privalomas",
+    "required_if": "Laukelis {_field_} privalomas",
+    "size": "{_field_} turi būti mažesnis nei {size}KB"
+  },
+  "$vuetify": {
+    "calendar": {
+      "moreEvents": "Daugiau {0}"
+    },
+    "carousel": {
+      "ariaLabel": {
+        "delimiter": "Carousel slide {0} of {1}"
+      },
+      "next": "Kita skaidrė",
+      "prev": "Ankstesnioji skaidrė"
+    },
+    "close": "Uždaryti",
+    "dataFooter": {
+      "firstPage": "Pirmas puslapis",
+      "itemsPerPageAll": "Visi",
+      "itemsPerPageText": "Įrašai per puslapį:",
+      "lastPage": "Paskutinis puslapis",
+      "nextPage": "Kitas puslapis",
+      "pageText": "{0}-{1} iš {2}",
+      "prevPage": "Ankstesnis puslapis"
+    },
+    "dataIterator": {
+      "loadingText": "Kraunama...",
+      "noResultsText": "Nerasta atitinkančių įrašų"
+    },
+    "dataTable": {
+      "ariaLabel": {
+        "sortAscending": ": Išrikiuota didėjimo tvarka. Suaktyvinkite, jei norite rikiuoti mažėjimo tvarka.",
+        "sortDescending": ": Išrikiuota mažėjimo tvarka. Suaktyvinkite, jei norite rikiavimą pašalinti.",
+        "sortNone": ": Nerikiuota. Suaktyvinkite, jei norite rikiuoti didėjimo tvarka."
+      },
+      "itemsPerPageText": "Eilutės per puslapį:",
+      "sortBy": "Rikiuoti pagal"
+    },
+    "datePicker": {
+      "itemsSelected": "{0} pasirinkta"
+    },
+    "fileInput": {
+      "counter": "{0} failų",
+      "counterSize": "{0} failų ({1} iš viso)"
+    },
+    "noDataText": "Nėra duomenų",
+    "timePicker": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "app": {
+    "title": "ParsFood - Administracija"
+  },
+  "common": {
+    "snackbar": {
+      "close": "Uždaryti"
+    }
+  },
+  "components": {
+    "additional-ingredients-group-component": {
+      "add-ingredient": "Pridėti ingredientą",
+      "cancel": "Atšaukti",
+      "create": "Sukurti",
+      "delete": "Ištrinti",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šią papildomų ingredientų grupę?"
+      },
+      "edit": "Koreguoti",
+      "group-not-found": "Papildomų ingredientų grupė nerasta.",
+      "ingredient-name": "Ingrediento pavadinimas",
+      "ingredient-price": "Kaina (EUR)",
+      "ingredients": "Ingredientai",
+      "ingredients-empty": "Nėra ingredientų.",
+      "name": "Grupės pavadinimas",
+      "title": "Papildomų ingredientų grupės info",
+      "update": "Atnaujinti"
+    },
+    "cloud-storage-image": {
+      "error": "Nepavyko užkrauti paveiksliuko."
+    },
+    "editable-cloud-storage-image-list": {
+      "select-image": "Pasirinkite paveiksliuką",
+      "validation": {
+        "image": "Failas turi būti paveikslėlis."
+      }
+    },
+    "editable-list": {
+      "add": "Pridėti",
+      "empty": "Sąrašas tuščias",
+      "move-down": "Perkelti žemiau",
+      "move-up": "Perkelti aukščiau",
+      "remove": "Pašalinti",
+      "restore": "Atstatyti"
+    },
+    "item-view-and-edit-component": {
+      "cancel": "Atšaukti",
+      "create": "Sukurti",
+      "delete": "Ištrinti",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite tai ištrinti?"
+      },
+      "edit": "Koreguoti",
+      "update": "Atnaujinti"
+    },
+    "menu-item-component": {
+      "assigned-additional-ingredients-group-not-found": "Papildomų ingredientų grupė nerasta",
+      "assigned-additional-ingredients-groups": "Papildomų ingredientų grupės",
+      "delete-dialog-title": "Ar tikrai norite ištrinti šį patiekalą?",
+      "description": "Aprašymas",
+      "ingredient-name": "Ingrediento pavadinimas",
+      "ingredient-removable": "Išmetamas",
+      "ingredients": "Ingredientai",
+      "name": "Patiekalo pavadinimas",
+      "not-removable": "neišmetamas",
+      "picture-marked-for-deletion": "Ši nuotrauka yra pažymėta ištrynimui",
+      "pictures": "Nuotraukos",
+      "removable": "išmetamas",
+      "required-choice-choices": "Pasirinkimai",
+      "required-choice-name": "Privalomo pasirinkimo pavadinimas",
+      "required-choices": "Privalomi pasirinkimai",
+      "size-name": "Dydžio pavadinimas",
+      "size-price": "Kaina",
+      "sizes": "Dydžiai",
+      "validation": {
+        "sizes": "Turi būti aprašytas bent {count} dydis|Turi būti aprašyta bent {count} dydžių"
+      },
+      "view-additional-ingredients-group": "Peržiūrėti"
+    },
+    "navigation": {
+      "additional-ingredients-groups": "Papildomų ingredientų grupės",
+      "errors": {
+        "failed-to-logout": "Nepavyko atsijungti."
+      },
+      "logout": "Atsijungti",
+      "menu-items": "Patiekalai",
+      "providers": "Tiekėjai"
+    }
+  },
+  "views": {
+    "additional-ingredients-group-create": {
+      "messages": {
+        "failed-to-create-group": "Nepavyko sukurti papildomų ingredinetų grupės.",
+        "group-created": "Papildomų ingredinetų grupė sėkmingai sukurta."
+      },
+      "title": "Sukurti papildomų ingredientų grupę"
+    },
+    "additional-ingredients-group-info": {
+      "back": "Atgal į sąrašą",
+      "messages": {
+        "failed-to-delete-group": "Nepavyko ištrinti papildomų ingredientų grupės.",
+        "failed-to-update-group": "Nepavyko atnaujinti papildomų ingredientų grupės.",
+        "group-deleted": "Papildomų ingredientų grupė sėkmingai ištrinta.",
+        "group-updated": "Paplidomų ingredientų grupė sėkmingai atnaujinta."
+      },
+      "title": "Papildomų ingredientų grupė"
+    },
+    "additional-ingredients-groups": {
+      "create": "Sukurti grupę",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šią grupę?"
+      },
+      "list": {
+        "actions": "Veiksmai",
+        "delete": "Ištrinti",
+        "duplicate": "Duplikuoti",
+        "filter": "Filtruoti papildomų ingredientų grupes",
+        "ingredients": "Ingredientai",
+        "name": "Pavadinimas",
+        "view": "Peržiūrėti"
+      },
+      "messages": {
+        "failed-to-delete-group": "Nepavyko ištrinti papildomų ingredientų grupės.",
+        "failed-to-duplicate-group": "Nepavyko duplikuoti papildomų ingredientų grupės.",
+        "group-deleted": "Papildomų ingredientų grupė sėkmingai ištrinta.",
+        "group-duplicated": "Papildomų ingredientų grupė sėkmingai duplikuota."
+      },
+      "provider": "Tiekėjas",
+      "provider-groups": "Pasirinkto tiekėjo papildomų ingredientų grupės",
+      "title": "Papildomų ingredientų grupės"
+    },
+    "home": {
+      "title": "Pagrindinis"
+    },
+    "login": {
+      "errors": {
+        "could-not-login": "Nepavyko prisijungti. Prašome patikrinti, ar yra interneto ryšys.",
+        "invalid-credentials": "Neteisingi prisijungimo duomenys."
+      },
+      "login": "Prisijungti",
+      "password": "Slaptažodis",
+      "title": "Prisijungti",
+      "username": "Slapyvardis"
+    },
+    "menu-item-create": {
+      "messages": {
+        "failed-to-create-menu-item": "Nepavyko sukurti patiekalo.",
+        "menu-item-created": "Patiekalas sėkmingai sukurtas.",
+        "menu-item-created-but-pictures-not-uploaded": "Patiekalas sukurtas sėkmingai, bet įvyko klaida bandant įkelti kai kurias nuotraukas."
+      },
+      "title": "Sukurti patiekalą"
+    },
+    "menu-item-info": {
+      "back": "Grįžti į sąrašą",
+      "messages": {
+        "failed-to-delete": "Nepavyko ištrinti patiekalo.",
+        "failed-to-delete-pictures": "Nepavyko ištrinti patiekalo nuotraukų.",
+        "failed-to-update": "Nepavyko atnaujinti patiekalo.",
+        "failed-to-update-pictures": "Nepavyko atnaujinti patiekalo nuotraukų.",
+        "menu-item-deleted": "Patiekalas sėkmingai ištrintas."
+      },
+      "title": "Patiekalas"
+    },
+    "menu-items": {
+      "create": "Sukurti patiekalą",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šį patiekalą?"
+      },
+      "list": {
+        "actions": "Veiksmai",
+        "delete": "Ištrinti",
+        "duplicate": "Duplikuoti (nuotraukos nebus nukopijuotos)",
+        "filter": "Filtruoti patiekalus",
+        "name": "Pavadinimas",
+        "view": "Peržiūrėti"
+      },
+      "messages": {
+        "failed-to-delete-menu-item": "Nepavyko ištrinti patiekalo.",
+        "failed-to-delete-pictures": "Nepavyko ištrinti patiekalo nuotraukų.",
+        "failed-to-duplicate-menu-item": "Nepavyko duplikuoti patiekalo.",
+        "menu-item-deleted": "Patiekalas sėkmingai ištrintas.",
+        "menu-item-duplicated": "Patiekalas sėkmingai duplikuotas (be nuotraukų)."
+      },
+      "provider": "Tiekėjas",
+      "provider-menu-items": "Pasirinkto tiekėjo patiekalai",
+      "title": "Patiekalai"
+    },
+    "provider-info": {
+      "cancel": "Atšaukti",
+      "edit": "Koreguoti",
+      "email": "El. paštas",
+      "logo": "Logotipas",
+      "messages": {
+        "could-not-get-provider-data": "Nepavyko gauti tiekėjo duomenų.",
+        "could-not-save-provider-data": "Nepavyko išsaugoti tiekėjo duomenų.",
+        "save-success": "Pakeitimai išsaugoti."
+      },
+      "name": "Pavadinimas",
+      "phone-number": "Telefono numeris",
+      "save": "Išsaugoti",
+      "title": "Tiekėjo informacija",
+      "website-url": "Nuorada į puslapį"
+    },
+    "providers": {
+      "create": "Sukurti tiekėją",
+      "list": {
+        "actions": "Veiksmai",
+        "email": "El. paštas",
+        "filter": "Filtruoti",
+        "name": "Pavadinimas",
+        "phone-number": "Tel. numeris",
+        "view": "Peržiūrėti",
+        "website-url": "Nuorada į puslapį"
+      },
+      "title": "Tiekėjai"
+    }
+  }
+}
