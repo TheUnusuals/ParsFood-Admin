@@ -1,4 +1,32 @@
 {
+  "$vee-validate": {
+    "alpha": "Laukelyje {_field_} leidžiamos tik raidės",
+    "alpha_dash": "Laukelyje {_field_} leidžiamos tik raidės, skaičiai bei brūkšneliai",
+    "alpha_num": "Laukelyje {_field_} leidžiamos tik raidės ir skaičiai",
+    "alpha_spaces": "Laukelyje {_field_} leidžiamos tik raidės ir tarpai",
+    "between": "Laukelio {_field_} reikšmė turi būti tarp {min} ir {max}",
+    "confirmed": "Laukelio {_field_} patvirtinimas nesutampa",
+    "digits": "Lauklio {_field_} reikšmė turi buti {length} ženklų(-o) skaitmuo",
+    "dimensions": "{_field_} turi būti {width} px x {height} px",
+    "email": "Laukelis {_field_} turi būti teisinga el. pašto adresas",
+    "excluded": "{_field_} reikšmė nėra leidžiama",
+    "ext": "{_field_} turi būti tinkamas failas",
+    "image": "{_field_} turi būti paveikslėlis",
+    "integer": "{_field_} turi būti sveikas skaičius",
+    "length": "{_field_} turi būti {length} ilgio",
+    "max": "{_field_} negali būti ilgesnis nei {length}",
+    "max_value": "{_field_} turi būti {max} arba mažiau",
+    "mimes": "{_field_}  privalo turėti tinkmą failo tipą",
+    "min": "{_field_} ilgis privalo būti bent {length}",
+    "min_length": "{_field_} kiekis privalo būti bent {length}",
+    "min_value": "{_field_} turi būti {min} arba daugiau",
+    "numeric": "{_field_} turi būti tik skaitmenys",
+    "oneOf": "{_field_} reikšmė nėra leidžiama",
+    "regex": "Laukelio {_field_} formatas netinkamas",
+    "required": "Laukelis {_field_} privalomas",
+    "required_if": "Laukelis {_field_} privalomas",
+    "size": "{_field_} turi būti mažesnis nei {size}KB"
+  },
   "$vuetify": {
     "calendar": {
       "moreEvents": "Daugiau {0}"
@@ -74,12 +102,65 @@
       "title": "Papildomų ingredientų grupės info",
       "update": "Atnaujinti"
     },
+    "cloud-storage-image": {
+      "error": "Nepavyko užkrauti paveiksliuko."
+    },
+    "editable-cloud-storage-image-list": {
+      "select-image": "Pasirinkite paveiksliuką",
+      "validation": {
+        "image": "Failas turi būti paveikslėlis."
+      }
+    },
+    "editable-list": {
+      "add": "Pridėti",
+      "empty": "Sąrašas tuščias",
+      "move-down": "Perkelti žemiau",
+      "move-up": "Perkelti aukščiau",
+      "remove": "Pašalinti",
+      "restore": "Atstatyti"
+    },
+    "item-view-and-edit-component": {
+      "cancel": "Atšaukti",
+      "create": "Sukurti",
+      "delete": "Ištrinti",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite tai ištrinti?"
+      },
+      "edit": "Koreguoti",
+      "update": "Atnaujinti"
+    },
+    "menu-item-component": {
+      "assigned-additional-ingredients-group-not-found": "Papildomų ingredientų grupė nerasta",
+      "assigned-additional-ingredients-groups": "Papildomų ingredientų grupės",
+      "delete-dialog-title": "Ar tikrai norite ištrinti šį patiekalą?",
+      "description": "Aprašymas",
+      "ingredient-name": "Ingrediento pavadinimas",
+      "ingredient-removable": "Išmetamas",
+      "ingredients": "Ingredientai",
+      "name": "Patiekalo pavadinimas",
+      "not-removable": "neišmetamas",
+      "picture-marked-for-deletion": "Ši nuotrauka yra pažymėta ištrynimui",
+      "pictures": "Nuotraukos",
+      "removable": "išmetamas",
+      "required-choice-choices": "Pasirinkimai",
+      "required-choice-name": "Privalomo pasirinkimo pavadinimas",
+      "required-choices": "Privalomi pasirinkimai",
+      "size-name": "Dydžio pavadinimas",
+      "size-price": "Kaina",
+      "sizes": "Dydžiai",
+      "validation": {
+        "sizes": "Turi būti aprašytas bent {count} dydis|Turi būti aprašyta bent {count} dydžių"
+      },
+      "view-additional-ingredients-group": "Peržiūrėti"
+    },
     "navigation": {
       "additional-ingredients-groups": "Papildomų ingredientų grupės",
       "errors": {
         "failed-to-logout": "Nepavyko atsijungti."
       },
       "logout": "Atsijungti",
+      "menu-items": "Patiekalai",
       "providers": "Tiekėjai"
     }
   },
@@ -138,6 +219,50 @@
       "password": "Slaptažodis",
       "title": "Prisijungti",
       "username": "Slapyvardis"
+    },
+    "menu-item-create": {
+      "messages": {
+        "failed-to-create-menu-item": "Nepavyko sukurti patiekalo.",
+        "menu-item-created": "Patiekalas sėkmingai sukurtas.",
+        "menu-item-created-but-pictures-not-uploaded": "Patiekalas sukurtas sėkmingai, bet įvyko klaida bandant įkelti kai kurias nuotraukas."
+      },
+      "title": "Sukurti patiekalą"
+    },
+    "menu-item-info": {
+      "back": "Grįžti į sąrašą",
+      "messages": {
+        "failed-to-delete": "Nepavyko ištrinti patiekalo.",
+        "failed-to-delete-pictures": "Nepavyko ištrinti patiekalo nuotraukų.",
+        "failed-to-update": "Nepavyko atnaujinti patiekalo.",
+        "failed-to-update-pictures": "Nepavyko atnaujinti patiekalo nuotraukų.",
+        "menu-item-deleted": "Patiekalas sėkmingai ištrintas."
+      },
+      "title": "Patiekalas"
+    },
+    "menu-items": {
+      "create": "Sukurti patiekalą",
+      "delete-dialog": {
+        "cancel": "Atšaukti",
+        "title": "Ar tikrai norite ištrinti šį patiekalą?"
+      },
+      "list": {
+        "actions": "Veiksmai",
+        "delete": "Ištrinti",
+        "duplicate": "Duplikuoti (nuotraukos nebus nukopijuotos)",
+        "filter": "Filtruoti patiekalus",
+        "name": "Pavadinimas",
+        "view": "Peržiūrėti"
+      },
+      "messages": {
+        "failed-to-delete-menu-item": "Nepavyko ištrinti patiekalo.",
+        "failed-to-delete-pictures": "Nepavyko ištrinti patiekalo nuotraukų.",
+        "failed-to-duplicate-menu-item": "Nepavyko duplikuoti patiekalo.",
+        "menu-item-deleted": "Patiekalas sėkmingai ištrintas.",
+        "menu-item-duplicated": "Patiekalas sėkmingai duplikuotas (be nuotraukų)."
+      },
+      "provider": "Tiekėjas",
+      "provider-menu-items": "Pasirinkto tiekėjo patiekalai",
+      "title": "Patiekalai"
     },
     "provider-info": {
       "cancel": "Atšaukti",

@@ -1,4 +1,32 @@
 {
+  "$vee-validate": {
+    "alpha": "The {_field_} field may only contain alphabetic characters",
+    "alpha_dash": "The {_field_} field may contain alpha-numeric characters as well as dashes and underscores",
+    "alpha_num": "The {_field_} field may only contain alpha-numeric characters",
+    "alpha_spaces": "The {_field_} field may only contain alphabetic characters as well as spaces",
+    "between": "The {_field_} field must be between {min} and {max}",
+    "confirmed": "The {_field_} field confirmation does not match",
+    "digits": "The {_field_} field must be numeric and exactly contain {length} digits",
+    "dimensions": "The {_field_} field must be {width} pixels by {height} pixels",
+    "email": "The {_field_} field must be a valid email",
+    "excluded": "The {_field_} field is not a valid value",
+    "ext": "The {_field_} field is not a valid file",
+    "image": "The {_field_} field must be an image",
+    "integer": "The {_field_} field must be an integer",
+    "length": "The {_field_} field must be {length} long",
+    "max": "The {_field_} field may not be greater than {length} characters",
+    "max_value": "The {_field_} field must be {max} or less",
+    "mimes": "The {_field_} field must have a valid file type",
+    "min": "The {_field_} field must be at least {length} characters",
+    "min_length": "The {_field_} field must have at least {length} items",
+    "min_value": "The {_field_} field must be {min} or more",
+    "numeric": "The {_field_} field may only contain numeric characters",
+    "oneOf": "The {_field_} field is not a valid value",
+    "regex": "The {_field_} field format is invalid",
+    "required": "The {_field_} field is required",
+    "required_if": "The {_field_} field is required",
+    "size": "The {_field_} field size must be less than {size}KB"
+  },
   "$vuetify": {
     "calendar": {
       "moreEvents": "{0} more"
@@ -74,12 +102,65 @@
       "title": "Additional ingredients group info",
       "update": "Update"
     },
+    "cloud-storage-image": {
+      "error": "Failed to load the image."
+    },
+    "editable-cloud-storage-image-list": {
+      "select-image": "Select image",
+      "validation": {
+        "image": "File must be an image."
+      }
+    },
+    "editable-list": {
+      "add": "Add",
+      "empty": "Empty list",
+      "move-down": "Move down",
+      "move-up": "Move up",
+      "remove": "Remove",
+      "restore": "Restore"
+    },
+    "item-view-and-edit-component": {
+      "cancel": "Cancel",
+      "create": "Create",
+      "delete": "Delete",
+      "delete-dialog": {
+        "cancel": "Cancel",
+        "title": "Are you sure you want to delete this?"
+      },
+      "edit": "Edit",
+      "update": "Update"
+    },
+    "menu-item-component": {
+      "assigned-additional-ingredients-group-not-found": "Additional ingredients group was not found",
+      "assigned-additional-ingredients-groups": "Additional ingredients groups",
+      "delete-dialog-title": "Are you sure you want to delete this menu item?",
+      "description": "Descriptin",
+      "ingredient-name": "Ingredient name",
+      "ingredient-removable": "Removable",
+      "ingredients": "Ingredients",
+      "name": "Menu item name",
+      "not-removable": "non-removable",
+      "picture-marked-for-deletion": "This picture is marked for deletion",
+      "pictures": "Pictures",
+      "removable": "removable",
+      "required-choice-choices": "Choices",
+      "required-choice-name": "Required choice name",
+      "required-choices": "Required choices",
+      "size-name": "Size name",
+      "size-price": "Price",
+      "sizes": "Sizes",
+      "validation": {
+        "sizes": "There must be at least {count} size defined|There must be at least {count} sizes defined"
+      },
+      "view-additional-ingredients-group": "View"
+    },
     "navigation": {
       "additional-ingredients-groups": "Additional ingredients groups",
       "errors": {
         "failed-to-logout": "Failed to logout."
       },
       "logout": "Logout",
+      "menu-items": "Menu items",
       "providers": "Providers"
     }
   },
@@ -138,6 +219,50 @@
       "password": "Password",
       "title": "Login",
       "username": "Username"
+    },
+    "menu-item-create": {
+      "messages": {
+        "failed-to-create-menu-item": "Failed to create menu item.",
+        "menu-item-created": "Menu item created successfully.",
+        "menu-item-created-but-pictures-not-uploaded": "Menu item was created successfully, but there was an error uploading some of the pictures."
+      },
+      "title": "Create menu item"
+    },
+    "menu-item-info": {
+      "back": "Back to list",
+      "messages": {
+        "failed-to-delete": "Failed to delete menu item.",
+        "failed-to-delete-pictures": "Failed to delete menu item pictures.",
+        "failed-to-update": "Failed to update menu item.",
+        "failed-to-update-pictures": "Failed to update menu item pictures.",
+        "menu-item-deleted": "Menu item deleted successfully."
+      },
+      "title": "Menu item"
+    },
+    "menu-items": {
+      "create": "Create menu item",
+      "delete-dialog": {
+        "cancel": "Cancel",
+        "title": "Are you sure you want to delete this menu item?"
+      },
+      "list": {
+        "actions": "Actions",
+        "delete": "Delete",
+        "duplicate": "Duplicate (pictures will not be copied)",
+        "filter": "Filter menu items",
+        "name": "Name",
+        "view": "View"
+      },
+      "messages": {
+        "failed-to-delete-menu-item": "Failed to delete menu item.",
+        "failed-to-delete-pictures": "Failed to delete menu item pictures.",
+        "failed-to-duplicate-menu-item": "Failed to duplicate menu item.",
+        "menu-item-deleted": "Menu item deleted successfully.",
+        "menu-item-duplicated": "Menu item duplicated (without pictures) successfully."
+      },
+      "provider": "Provider",
+      "provider-menu-items": "Selected provider menu items",
+      "title": "Menu items"
     },
     "provider-info": {
       "cancel": "Cancel",
