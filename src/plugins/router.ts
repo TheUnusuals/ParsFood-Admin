@@ -31,13 +31,17 @@ function getProviderInternalInfoBeforeEnter(redirectTo: Location): NavigationGua
 
                 watching = false;
 
-                next({
-                    ...redirectTo,
-                    params: {
-                        ...(redirectTo.params || {}),
-                        providerId: providersModule.sortedProviders[0].id
-                    }
-                });
+                if (providersModule.sortedProviders.length) {
+                    next({
+                        ...redirectTo,
+                        params: {
+                            ...(redirectTo.params || {}),
+                            providerId: providersModule.sortedProviders[0].id
+                        }
+                    });
+                } else {
+                    next({name: "providers"});
+                }
             }
         }, {immediate: true});
 
