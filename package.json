@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.2",
     "firebase": "^7.6.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "reflect-metadata": "^0.1.13",
     "vee-validate": "^3.2.1",
     "vue": "^2.6.11",
